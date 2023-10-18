@@ -5,8 +5,6 @@ import { AiOutlineUser, AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import logo from '../../assets/img/logo_Non_Son_doc.svg'
 import bglogo from '../../assets/img/bglogo.png'
 import slogan from '../../assets/img/slogan_fix_1.svg'
-import nonvanh1 from '../../assets/img/nonvanh1.jpg'
-import nonvanh2 from '../../assets/img/nonvanh2.jpg'
 import { useEffect, useState } from 'react';
 import Login from '../login/login.tsx';
 import Register from '../register/register.tsx';
