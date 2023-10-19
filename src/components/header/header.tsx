@@ -115,7 +115,7 @@ export default function Header() {
             </a>
 
             {/* subnav */}
-            <div className='absolute bg-slate-50 -ml-[467px] p-[20px] w-[830px] flex-col border-t border-solid border-gray-300 mt-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible  duration-500 '>
+            <div className='absolute bg-slate-50 -ml-[467px] p-[20px] w-[830px] flex-col border-t border-solid border-gray-300 mt-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible  duration-500 z-[7] '>
               <div className="w-[230px]">
                 <div className='text-base font-medium py-[5px] border-b border-solid border-gray-500 mb-[20px] hover:text-primary-color duration-500'>NÓN VÀNH</div>
                 <ul>
