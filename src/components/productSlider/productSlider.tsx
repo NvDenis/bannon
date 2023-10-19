@@ -1,6 +1,5 @@
 import 'react-slideshow-image/dist/styles.css'
-import SimpleImageSlider from "react-simple-image-slider";
-import { useEffect, useState } from 'react';
+
 import { Slide } from 'react-slideshow-image';
 
 interface Props {
@@ -8,23 +7,7 @@ interface Props {
 }
 
 export default function ProductSlider({ categorySlider }: Props) {
-  console.log('check category', categorySlider);
-  const responsiveSettings = [
-    {
-      breakpoint: 800,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3
-      }
-    },
-    {
-      breakpoint: 500,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2
-      }
-    }
-  ];
+ 
 
   return (
     <div className="">
