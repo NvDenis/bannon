@@ -4,7 +4,7 @@ import slider2 from '../assets/img/2.jpg'
 import slider3 from '../assets/img/3.jpg'
 import ProductSlider from "../components/productSlider/productSlider";
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 // import { callGetCategory } from "../services/api";
 import nonda from '../assets/img/non-da.jpg'
 import nonket from '../assets/img/non-ket.jpg'
@@ -17,54 +17,57 @@ import nondantay from '../assets/img/nonvanh2.jpg'
 
 export default function HomePage() {
 
-  const [categorySlider, setCategorySlider] = useState<Array<{ url: string, name: string }>>([
-    {
-      // url: "http://localhost:3000/images/hat/1697617989071-non-da.jpg",
-      url: nonda,
-      name: "nón da",
-    },
+  const [categorySlider, setCategorySlider] = useState<Array<{ url: string, name: string }>>([]);
 
-    {
-      url: nontreem,
-      name: "nón trẻ em",
-    },
-
-    {
-      url: nonbaohiem,
-      name: "nón bảo hiểm",
-    },
-
-    {
-      url: nonket,
-      name: "nón kết",
-    },
-
-    {
-      url: nonda,
-      name: "nón da",
-    },
-
-    {
-      url: nonphot,
-      name: "nón phớt",
-    },
-
-    {
-      url: nonsnapback,
-      name: "nón snapback",
-    },
-
-    {
-      url: nonvanh,
-      name: "nón vành",
-    },
-
-    {
-      url: nondantay,
-      name: "nón đan tay",
-    },
-  ]);
-
+  useEffect(() => {
+    setCategorySlider([
+      {
+        // url: "http://localhost:3000/images/hat/1697617989071-non-da.jpg",
+        url: nonda,
+        name: "nón da",
+      },
+  
+      {
+        url: nontreem,
+        name: "nón trẻ em",
+      },
+  
+      {
+        url: nonbaohiem,
+        name: "nón bảo hiểm",
+      },
+  
+      {
+        url: nonket,
+        name: "nón kết",
+      },
+  
+      {
+        url: nonda,
+        name: "nón da",
+      },
+  
+      {
+        url: nonphot,
+        name: "nón phớt",
+      },
+  
+      {
+        url: nonsnapback,
+        name: "nón snapback",
+      },
+  
+      {
+        url: nonvanh,
+        name: "nón vành",
+      },
+  
+      {
+        url: nondantay,
+        name: "nón đan tay",
+      },
+    ])
+  }, [])
 
   const images = [
     { url: slider1 },
