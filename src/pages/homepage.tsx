@@ -8,7 +8,8 @@ import { callGetCategory } from "../services/api";
 
 export default function HomePage() {
 
-  const [categorySlider, setCategorySlider] = useState([])
+  const [categorySlider, setCategorySlider] = useState<Array<{ url: string, name: string }>>([]);
+
 
   const images = [
     { url: slider1 },
@@ -22,13 +23,62 @@ export default function HomePage() {
 
       if (res && res.data) {
 
-        const data = res.data.map((e: any) => {
-          return {
-            url: `http://localhost:3000/images/hat/${e.thumb}`,
-            name: e.name,
-          }
-        })
-        setCategorySlider(data);
+        // const data = res.data.map((e: any) => {
+        //   return {
+        //     url: `http://localhost:3000/images/hat/${e.thumb}`,
+        //     name: e.name,
+        //   }
+        // })
+
+        // console.log('check data ', data);
+
+        const img = [
+          {
+            url: "http://localhost:3000/images/hat/1697617989071-non-da.jpg",
+            name: "nón da",
+          },
+
+          {
+            url: "http://localhost:3000/images/hat/1697618096850-non-tre-em.png",
+            name: "nón trẻ em",
+          },
+
+          {
+            url: "http://localhost:3000/images/hat/1697618122449-non-bao-hiem.jpg",
+            name: "nón bảo hiểm",
+          },
+
+          {
+            url: "http://localhost:3000/images/hat/1697618139157-non-ket.jpg",
+            name: "nón kết",
+          },
+
+          {
+            url: "http://localhost:3000/images/hat/1697617989071-non-da.jpg",
+            name: "nón da",
+          },
+
+          {
+            url: "http://localhost:3000/images/hat/1697618144048-non-phot.jpg",
+            name: "nón phớt",
+          },
+
+          {
+            url: "http://localhost:3000/images/hat/1697618151536-non-snapback.jpg",
+            name: "nón snapback",
+          },
+
+          {
+            url: "http://localhost:3000/images/hat/1697618175844-nonvanh1.jpg",
+            name: "nón vành",
+          },
+
+          {
+            url: "http://localhost:3000/images/hat/1697618180525-nonvanh2.jpg",
+            name: "nón đan tay",
+          },
+        ]
+        setCategorySlider(img);
       }
     }
 
