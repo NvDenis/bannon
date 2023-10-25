@@ -1,6 +1,7 @@
 import 'react-slideshow-image/dist/styles.css'
 
 import { Slide } from 'react-slideshow-image';
+import { Link } from 'react-router-dom';
 
 interface Props {
   categorySlider: Array<any>,
@@ -69,13 +70,15 @@ export default function ProductSlider({ categorySlider }: Props) {
 
         {
           categorySlider && categorySlider.map((e: any) => {
-            return <div>
+            return (
+              <Link to={'product'}>
 
               <div className=" w-[150px] h-[200px]  md:w-[200px] md:h-[250px]     lg:w-[250px] lg:h-[300px]">
                 <img src={e.url} alt="" className='h-full w-full' />
               </div>
               <div className="uppercase inline-block py-2 font-bold text-lg">{e.name}</div>
-            </div>
+            </Link>
+            )
           })
         }
 
