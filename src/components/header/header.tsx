@@ -4,7 +4,6 @@ import { FiFacebook } from 'react-icons/fi';
 import { AiOutlineUser, AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import logo from '../../assets/img/logo_Non_Son_doc.svg'
 import bglogo from '../../assets/img/bglogo.png'
-import slogan from '../../assets/img/slogan_fix_1.svg'
 import { useEffect, useState } from 'react';
 import Login from '../login/login.tsx';
 import Register from '../register/register.tsx';
@@ -64,7 +63,7 @@ export default function Header() {
 
               {showMenu && !isSticky &&
 
-                <div className='absolute right-0 top-[30px] shadow-lg rounded z-10 bg-white'>
+                <div className='absolute right-0 top-[30px] shadow-lg rounded-2xl z-10 bg-white'>
                   <ul className='p-[10px] min-w-[200px]'>
                     <li className='mb-[10px]'><a href="" className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleShowLogin}>Đăng nhập</a></li>
                     <li className='mb-[10px]'><a href="" className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleShowRegister}>Đăng ký</a></li>
@@ -91,31 +90,31 @@ export default function Header() {
       </div>
 
       {/* navbar */}
-      <nav className={`w-full ${isSticky ? 'fixed w-full left-0 right-0 -top-[4.5rem] shadow-md z-50 bg-white' : ''} `}>
+      <nav className={`w-full ${isSticky ? 'fixed w-full left-0 right-0 -top-[4.5rem] shadow-md z-50 bg-white ' : ''} `}>
         {/* navbar desktop*/}
         <ul className={`w-full flex justify-center gap-4 mt-[4.5rem] hidden lg:flex p-2   `}>
           <li className='text-sm cursor-pointer  '>
-            <a href="" className='hover:text-[#e21e70] duration-500'>NÓN DA</a>
+            <a href="" className='hover:text-[#e21e70] duration-500 block py-2'>NÓN DA</a>
           </li>
           <li className='text-sm cursor-pointer '>
-            <a href="" className='hover:text-[#e21e70] duration-500'>NÓN SNAPBACK</a>
+            <a href="" className='hover:text-[#e21e70] duration-500 block py-2'>NÓN SNAPBACK</a>
           </li>
           <li className='text-sm cursor-pointer '>
-            <a href="" className='hover:text-[#e21e70] duration-500'>NÓN KẾT</a>
+            <a href="" className='hover:text-[#e21e70] duration-500 block py-2'>NÓN KẾT</a>
           </li>
           <li className='text-sm cursor-pointer '>
-            <a href="" className='hover:text-[#e21e70] duration-500'>NÓN JACKET</a>
+            <a href="" className='hover:text-[#e21e70] duration-500 block py-2'>NÓN JACKET</a>
           </li>
           <li className='text-sm cursor-pointer '>
-            <a href="" className='hover:text-[#e21e70] duration-500'>NÓN ĐAN TAY</a>
+            <a href="" className='hover:text-[#e21e70] duration-500 block py-2'>NÓN ĐAN TAY</a>
           </li>
           <li className='text-sm cursor-pointer relative group '>
-            <a href="" className='hover:text-[#e21e70] duration-500'>
+            <a href="" className='hover:text-[#e21e70] duration-500 block py-2'>
               NÓN VÀNH
             </a>
 
             {/* subnav */}
-            <div className='absolute bg-slate-50 -ml-[467px] p-[20px] w-[830px] flex-col border-t border-solid border-gray-300 mt-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible  duration-500 z-[7] '>
+            <div className='absolute bg-slate-50 -ml-[467px] p-[20px] w-[830px] flex-col border-t border-solid border-gray-300 mt-[9px] opacity-0 invisible group-hover:opacity-100 group-hover:visible  duration-500 z-[7] '>
               <div className="w-[230px]">
                 <div className='text-base font-medium py-[5px] border-b border-solid border-gray-500 mb-[20px] hover:text-primary-color duration-500'>NÓN VÀNH</div>
                 <ul>
@@ -127,15 +126,15 @@ export default function Header() {
             </div>
           </li>
           <li className='text-sm cursor-pointer '>
-            <a href="" className='hover:text-[#e21e70] duration-500'>NÓN PHỚT</a>
+            <a href="" className='hover:text-[#e21e70] duration-500 block py-2'>NÓN PHỚT</a>
           </li>
           <li className='text-sm cursor-pointer relative group '>
-            <a href="" className='hover:text-[#e21e70] duration-500'>
+            <a href="" className='hover:text-[#e21e70] duration-500 block py-2'>
               NÓN BẢO HIỂM
 
             </a>
             {/* subnav */}
-            <div className='absolute bg-slate-50 -ml-[643px] p-[20px] w-[830px] flex-col border-t border-solid border-gray-300 mt-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible  duration-500 '>
+            <div className='absolute bg-slate-50 -ml-[643px] p-[20px] w-[830px] flex-col border-t border-solid border-gray-300 mt-[9px] opacity-0 invisible group-hover:opacity-100 group-hover:visible  duration-500 '>
               <div className="w-[230px]">
                 <div className='text-base font-medium py-[5px] border-b border-solid border-gray-500 mb-[20px] hover:text-primary-color duration-500'>NÓN BẢO HIỂM</div>
                 <ul>
@@ -149,10 +148,10 @@ export default function Header() {
             </div>
           </li>
           <li className='text-sm cursor-pointer relative group '>
-            <a href="" className='hover:text-[#e21e70] duration-500'>NÓN TRẺ EM</a>
+            <a href="" className='hover:text-[#e21e70] duration-500 block py-2'>NÓN TRẺ EM</a>
 
             {/* subnav */}
-            <div className='absolute bg-slate-50 -ml-[757px] p-[20px] w-[830px] flex-col border-t border-solid border-gray-300 mt-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible  duration-500 '>
+            <div className='absolute bg-slate-50 -ml-[757px] p-[20px] w-[830px] flex-col border-t border-solid border-gray-300 mt-[9px] opacity-0 invisible group-hover:opacity-100 group-hover:visible  duration-500 '>
               <div className="w-[230px]">
                 <div className='text-base font-medium py-[5px] border-b border-solid border-gray-500 mb-[20px] hover:text-primary-color duration-500'>NÓN BẢO HIỂM</div>
                 <ul>
@@ -162,7 +161,7 @@ export default function Header() {
               </div>
             </div>
           </li>
-          <li className='text-sm cursor-pointer '>FLASHSALE</li>
+          <li className='text-sm cursor-pointer py-2 text-primary-color '>FLASHSALE</li>
         </ul>
 
         {/* navbar tablet vs mobile*/}
@@ -178,14 +177,14 @@ export default function Header() {
         </div>
 
         {/* fixed header */}
-        <div className={`hidden absolute right-4 top-20 xl:flex gap-4 items-center duration-100 ${isSticky ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+        <div className={`hidden absolute right-4 top-[85px] xl:flex gap-4 items-center duration-100 ${isSticky ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
           <span className='flex items-center cursor-pointer' onClick={() => setShowMenu(pre => !pre)}>
             <AiOutlineUser />
             <span className='hover:text-primary-color  duration-500'>Tài khoản</span>
 
             {showMenu && isSticky &&
 
-              <div className='absolute right-4 top-[30px] shadow-lg rounded z-10 bg-white '>
+              <div className='absolute right-8 top-[50px] shadow-xl rounded-2xl z-10 bg-white '>
                 <ul className='p-[10px] min-w-[200px]'>
                   <li className='mb-[10px]'><a href="" className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleShowLogin}>Đăng nhập</a></li>
                   <li className='mb-[10px]'><a href="" className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleShowRegister}>Đăng ký</a></li>
@@ -203,10 +202,6 @@ export default function Header() {
 
       </nav>
 
-      {/* slogan */}
-      <div className={`h-[44px] flex justify-center  ${isSticky ? 'mt-[8rem]' : 'mt-[1.5rem]'} `}>
-        <img src={slogan} alt="" className='h-full' />
-      </div>
 
       <Login showLogin={showLogin} setShowLogin={setShowLogin} setShowRegister={setShowRegister} />
       <Register showRegister={showRegister} setShowRegister={setShowRegister} setShowLogin={setShowLogin} />

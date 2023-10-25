@@ -12,7 +12,7 @@ export default function Login({ showLogin, setShowLogin,setShowRegister }: { sho
         <>
             {
                 showLogin ?
-                    <div className="fixed left-0 top-0 right-0 bottom-0 bg-black bg-opacity-50 z-20 ">
+                    <div className="fixed left-0 top-0 right-0 bottom-0 bg-black bg-opacity-50 z-[50] ">
                         {/* content  */}
                         <div className="absolute w-full h-full p-5 z-[111] bg-white py-11 px-6
     md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[400px] md:h-auto">

@@ -11,8 +11,7 @@ export default function ProductSlider({ categorySlider }: Props) {
 
   return (
     <div className="">
-
-      <Slide slidesToScroll={1} slidesToShow={1} indicators={false} autoplay={true} responsive={
+      <Slide slidesToScroll={1} canSwipe={false}  duration={3000} slidesToShow={1} transitionDuration={300} autoplay={true} responsive={
         [
           {
             breakpoint: 1200,

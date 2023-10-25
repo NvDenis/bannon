@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
@@ -7,6 +7,10 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import HomePage from './pages/homepage.tsx';
+import CategoryPage from './pages/categorypage.tsx';
+import ProductPage from './pages/productpage.tsx';
+
+
 
 const router = createBrowserRouter([
   {
@@ -16,6 +20,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />
+      },
+      {
+        path: 'non-vanh',
+        element: <CategoryPage />
+      },
+      {
+        path: 'product',
+        element: <ProductPage />
       }
     ]
   },

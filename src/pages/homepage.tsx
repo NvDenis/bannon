@@ -3,7 +3,7 @@ import slider1 from '../assets/img/1.jpg'
 import slider2 from '../assets/img/2.jpg'
 import slider3 from '../assets/img/3.jpg'
 import ProductSlider from "../components/productSlider/productSlider";
-
+import slogan from '../assets/img/slogan_fix_1.svg'
 import { useEffect, useState } from 'react'
 // import { callGetCategory } from "../services/api";
 import nonda from '../assets/img/non-da.jpg'
@@ -188,11 +188,37 @@ export default function HomePage() {
   //   setCategorySlider(img);
 
   // getCategory();
-  // }, [])
+  // }, [])\
+
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.pageYOffset > 100) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
 
   return (
-    <div className="min-h-screen " >
+    <div className={`min-h-screen ${isSticky ? 'pt-[120px]' : ''}`} >
+
+      
+      {/* slogan */}
+      <div className={`h-[44px] flex justify-center  `}>
+        <img src={slogan} alt="" className='h-full' />
+      </div>
+
+
       {/* image slider */}
       <div className="px-3">
         <div className="pt-[55%] w-full relative mt-3 " >
