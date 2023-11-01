@@ -8,33 +8,42 @@ import {
 } from "react-router-dom";
 import HomePage from './pages/homepage.tsx';
 import CategoryPage from './pages/categorypage.tsx';
-import ProductPage from './pages/productpage.tsx';
+import DetailProductPage from './pages/detailProductpage.tsx';
+
+import { Provider } from 'react-redux'
+import { store } from './redux/store.tsx';
 
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element:
+      <Provider store={store}>
+        <App />
+      </Provider>
+    ,
     children: [
       {
         index: true,
         element: <HomePage />
       },
       {
-        path: 'non-vanh',
-        element: <CategoryPage />
+        path: ':categoryName/',
+        element: <CategoryPage />,
       },
       {
-        path: 'product',
-        element: <ProductPage />
+        path: 'hat/:slug',
+        element: <DetailProductPage />
       }
+
+
     ]
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-      <RouterProvider router={router} />
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )

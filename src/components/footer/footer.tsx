@@ -3,14 +3,15 @@ import congthuong from '../../assets/img/congthuong.png'
 
 export default function Footer() {
   return (
-    <footer className="">
-      <div className="flex p-[30px] gap-4 flex-col sm:flex-row ">
+    <footer className="mt-20">
+      <hr />
+      <div className="flex p-[30px] gap-4 flex-col sm:flex-row justify-center items-center">
         <div className="sm:w-1/2">
           <div className="text-lg leading-7 uppercase">
             nhận thông báo khuyến mãi mới nhất từ nón sơn
           </div>
         </div>
-        <div className="sm:w-1/2 relative">
+        <div className="sm:w-1/2 relative w-full">
           <input type="text" className="w-full outline-none pr-[50px] border-solid border-b-2 border-gray-500 h-10 " placeholder="Email của bạn" />
           <button className='absolute w-10 h-10 right-0 p-1'>
             <img src={mail} alt="" className='' />

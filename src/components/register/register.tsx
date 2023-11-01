@@ -1,17 +1,19 @@
 
-export default function Register({ showRegister, setShowRegister,setShowLogin }: { showRegister: boolean, setShowRegister: Function,setShowLogin: Function }) {
+
+export default function Register({ showRegister, setShowRegister, setShowLogin }: { showRegister: boolean, setShowRegister: Function, setShowLogin: Function }) {
     const handleShowLogin = () => {
-        setShowLogin((pre:any) => !pre)
-        setShowRegister((pre:any) => !pre)
+        setShowLogin((pre: any) => !pre)
+        setShowRegister((pre: any) => !pre)
     }
     return (
         <>
             {
                 showRegister ?
-                    <div className="fixed left-0 top-0 right-0 bottom-0 bg-black bg-opacity-50 z-[50] ">
-                        {/* content  */}
-                        <div className="absolute w-full h-full p-5 z-[111] bg-white py-11 px-6
-md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[400px] md:h-[548px] ">
+                    <div className="fixed left-0 top-0 right-0 bottom-0 z-[21] flex">
+                        <div className="absolute w-full h-full bg-black opacity-[.4]" onClick={() => setShowRegister(false)}></div>
+
+                        <div className="w-full h-full md:w-[370px] md:h-auto m-auto py-10 px-8 bg-white relative animate-growth">
+
                             <div className="flex justify-between px-4 relative mb-[25px]">
                                 <div className="uppercase text-[25px] leading-[38px] font-[400] text-gray-400 cursor-pointer " onClick={handleShowLogin}>đăng nhập</div>
                                 <div className="uppercase text-[25px] leading-[38px] font-[400] text-black cursor-pointer " >đăng ký</div>
@@ -59,6 +61,8 @@ md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 md:m
                                 <div className="text-base text-center text-[14px] my-[10px]">Tôi đã đọc và đồng ý với Điều khoản và Quy định của Nón Sơn </div>
                             </div>
                         </div>
+                        {/* content  */}
+                        {/* */}
                     </div>
                     :
                     <></>
