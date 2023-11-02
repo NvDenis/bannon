@@ -16,6 +16,8 @@ export default function HomePage() {
     { url: slider3 },
   ];
 
+  
+
   const [featuredProducts, setFeaturedProducts] = useState<Array<{ id: String, url: string, name: string, price: string }>>([]);
   const [BOGOProducts, setBOGOProducts] = useState<Array<{ id: String, url: string, name: string, price: string }>>([]);
 
