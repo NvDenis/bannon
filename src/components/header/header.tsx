@@ -4,30 +4,42 @@ import { FiFacebook } from 'react-icons/fi';
 import { AiOutlineUser } from 'react-icons/ai';
 import logo from '../../assets/img/logo_Non_Son_doc.svg'
 import bglogo from '../../assets/img/bglogo.png'
-import {  useState } from 'react';
-import Login from '../login/login.tsx';
-import Register from '../register/register.tsx';
+import { useState } from 'react';
+
 import NavBar from '../nav/nav.tsx';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { doDrawerCartToggle, doLoginToggle, doLogoutAction, doRegisterToggle } from '../../redux/account/accountSlice.tsx';
+import { callLogout } from '../../services/api.tsx';
 
 export default function Header() {
+  const user = useSelector((state) => state.account.user)
+  const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
+
   const [showMenu, setShowMenu] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleShowLogin = (e: any) => {
+  const handleShowLogin = (e) => {
     e.preventDefault();
-    setShowLogin(pre => !pre)
+    dispatch(doLoginToggle())
   }
 
-  const handleShowRegister = (e: any) => {
+  const handleShowRegister = (e) => {
     e.preventDefault();
-    setShowRegister(pre => !pre)
+    dispatch(doRegisterToggle())
   }
 
 
-
+  const handleLogout = async () => {
+    const res = await callLogout();
+    if (res && res.data) {
+      dispatch(doLogoutAction());
+      toast.success("Đăng xuất thành công");
+      navigate("/");
+    }
+  }
 
 
   return (
@@ -43,24 +55,41 @@ export default function Header() {
 
             <div className="flex gap-2">
               <span className='flex items-center hidden lg:flex'><BsSearch /><span className=' hover:text-primary-color cursor-pointer duration-500'> Tìm kiếm</span></span>
-              <span className='flex items-center hidden lg:flex relative' ><AiOutlineUser />
-                <span className=' hover:text-primary-color cursor-pointer duration-500' onClick={() => setShowMenu(pre => !pre)}>
-                  Tài khoản
-                </span>
-
-                {showMenu  &&
+              <div className='flex items-center hidden lg:flex relative' >
+                <AiOutlineUser />
+                {
+                  isAuthenticated === false ?
+                    <span className=' hover:text-primary-color cursor-pointer duration-500' onClick={() => setShowMenu(pre => !pre)}>
+                      Tài khoản
+                    </span>
+                    :
+                    <span className=' hover:text-primary-color cursor-pointer duration-500' onClick={() => setShowMenu(pre => !pre)}>
+                      {
+                        user.fullName
+                      }
+                    </span>
+                }
+                {showMenu &&
 
                   <div className='absolute right-0 top-[30px] shadow-lg rounded-2xl z-10 bg-white'>
                     <ul className='p-[10px] min-w-[200px]'>
-                      <li className='mb-[10px]'><a href="" className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleShowLogin}>Đăng nhập</a></li>
-                      <li className='mb-[10px]'><a href="" className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleShowRegister}>Đăng ký</a></li>
-                      <li className='mb-[10px]'><a href="" className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' >Facebook</a></li>
+                      {
+                        !isAuthenticated ?
+                          <>
+                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleShowLogin}>Đăng nhập</a></li>
+                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleShowRegister}>Đăng ký</a></li>
+                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' >Facebook</a></li>
+                          </>
+                          :
+                          <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color cursor-pointer' onClick={handleLogout} >Đăng xuất</a></li>
+
+                      }
                     </ul>
                   </div>
 
                 }
-              </span>
-              <span className='flex items-center hidden lg:flex'><BsBag /><span className=' hover:text-primary-color cursor-pointer duration-500'> 0 Sản phẩm</span></span>
+              </div>
+              <span className='flex items-center hidden lg:flex'><BsBag /><span className=' hover:text-primary-color cursor-pointer duration-500' onClick={() => dispatch(doDrawerCartToggle())}> 0 Sản phẩm</span></span>
               <span className='flex items-center lg:hidden'><FiFacebook /><span className=' hover:text-primary-color cursor-pointer duration-500'> Mua hàng qua Facebook</span></span>
             </div>
           </div>
@@ -70,14 +99,13 @@ export default function Header() {
         <div className='flex justify-center relative'>
 
           <div className="hidden sm:block sm:absolute top-[-33px] left-1/2 transform -translate-x-1/2 w-56">
-            <img src={bglogo} alt="Logo" className="w-220 h-90 object-contain w-full "  />
+            <img src={bglogo} alt="Logo" className="w-220 h-90 object-contain w-full " />
           </div>
 
           <img src={logo} alt="" className=" max-h-16 top-[15px] sm:max-h-24 absolute sm:top-[-25px]" onClick={() => navigate('/')} />
         </div>
 
-        <Login showLogin={showLogin} setShowLogin={setShowLogin} setShowRegister={setShowRegister} />
-        <Register showRegister={showRegister} setShowRegister={setShowRegister} setShowLogin={setShowLogin} />
+
       </header>
 
       {/* NavBar */}

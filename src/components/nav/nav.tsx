@@ -1,10 +1,12 @@
 import { AiOutlineMenu, AiOutlineUser } from "react-icons/ai";
 import { BsBag, BsSearch } from "react-icons/bs";
 import { useState, useEffect } from 'react'
-import Login from "../login/login";
-import Register from "../register/register";
-import DrawerNavbar from "../drawerNavbar/drawerNavbar";
 import DrawerCart from "../drawerCart/drawerCart";
+import { useDispatch, useSelector } from "react-redux";
+import { callLogout } from "../../services/api";
+import { doDrawerCartToggle, doLoginToggle, doLogoutAction, doRegisterToggle } from "../../redux/account/accountSlice";
+import { toast } from "react-toastify";
+import { Navigate } from "react-router-dom";
 
 
 export default function NavBar() {
@@ -12,18 +14,20 @@ export default function NavBar() {
     const [isSticky, setIsSticky] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const [showMenuMobileTalet, setShowMenuMobileTablet] = useState(false);
-    const [showLogin, setShowLogin] = useState(false);
-    const [showRegister, setShowRegister] = useState(false);
-    const [showDrawerCart, setShowDrawerCart] = useState(false)
+    // const [showDrawerCart, setShowDrawerCart] = useState(false)
+    const user = useSelector((state: any) => state.account.user)
+    const isAuthenticated = useSelector((state: any) => state.account.isAuthenticated);
+    const wishList = useSelector(state => state.account.user.wishList)
+    const dispatch = useDispatch();
 
     const handleShowLogin = (e: any) => {
         e.preventDefault();
-        setShowLogin(pre => !pre)
+        dispatch(doLoginToggle())
     }
 
     const handleShowRegister = (e: any) => {
         e.preventDefault();
-        setShowRegister(pre => !pre)
+        dispatch(doRegisterToggle())
     }
 
 
@@ -44,6 +48,15 @@ export default function NavBar() {
         };
     }, []);
 
+    const handleLogout = async () => {
+        const res = await callLogout();
+        if (res && res.data) {
+            dispatch(doLogoutAction());
+            toast.success("Đăng xuất thành công");
+            Navigate("/");
+        }
+    }
+
 
     return (
         <>
@@ -52,22 +65,22 @@ export default function NavBar() {
                 {/* navbar desktop*/}
                 <ul className={`w-full flex justify-center gap-4 mt-[4.5rem] hidden lg:flex p-2   `}>
                     <li className='text-sm cursor-pointer  '>
-                        <a href={'/non-da'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN DA</a>
+                        <a href={'/category/non-da'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN DA</a>
                     </li>
                     <li className='text-sm cursor-pointer '>
-                        <a href={'/non-snapback'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN SNAPBACK</a>
+                        <a href={'/category/non-snapback'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN SNAPBACK</a>
                     </li>
                     <li className='text-sm cursor-pointer '>
-                        <a href={'/non-ket'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN KẾT</a>
+                        <a href={'/category/non-ket'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN KẾT</a>
                     </li>
                     <li className='text-sm cursor-pointer '>
-                        <a href={'/non-jacket'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN JACKET</a>
+                        <a href={'/category/non-jacket'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN JACKET</a>
                     </li>
                     <li className='text-sm cursor-pointer '>
-                        <a href={'/non-dan-tay'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN ĐAN TAY</a>
+                        <a href={'/category/non-dan-tay'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN ĐAN TAY</a>
                     </li>
                     <li className='text-sm cursor-pointer relative group '>
-                        <a href={'/non-vanh'} className='hover:text-[#e21e70] duration-500 block py-2'>
+                        <a href={'/category/non-vanh'} className='hover:text-[#e21e70] duration-500 block py-2'>
                             NÓN VÀNH
                         </a>
 
@@ -84,10 +97,10 @@ export default function NavBar() {
                         </div>
                     </li>
                     <li className='text-sm cursor-pointer '>
-                        <a href={'/non-phot'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN PHỚT</a>
+                        <a href={'/category/non-phot'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN PHỚT</a>
                     </li>
                     <li className='text-sm cursor-pointer relative group '>
-                        <a href={'/non-bao-hiem'} className='hover:text-[#e21e70] duration-500 block py-2'>
+                        <a href={'/category/non-bao-hiem'} className='hover:text-[#e21e70] duration-500 block py-2'>
                             NÓN BẢO HIỂM
 
                         </a>
@@ -106,7 +119,7 @@ export default function NavBar() {
                         </div>
                     </li>
                     <li className='text-sm cursor-pointer relative group '>
-                        <a href={'/non-tre-em'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN TRẺ EM</a>
+                        <a href={'/category/non-tre-em'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN TRẺ EM</a>
 
                         {/* subnav */}
                         <div className='absolute bg-slate-50 -ml-[757px] p-[20px] w-[830px] flex-col border-t border-solid border-gray-300 mt-[9px] opacity-0 invisible group-hover:opacity-100 group-hover:visible  duration-500 '>
@@ -128,9 +141,11 @@ export default function NavBar() {
                         <span><AiOutlineMenu /></span>
                         <span>MENU</span>
                     </div>
-                    <div className='flex items-center gap-2'>
-                        <span><BsSearch /></span>
-                        <span className="block pl-1" onClick={() => setShowDrawerCart((pre:boolean) => !pre)}><BsBag /></span>
+                    <div className='flex items-center gap-3'>
+                        <span className=""><BsSearch /> </span>
+                        <span className="block pl-1 relative" onClick={() => dispatch(doDrawerCartToggle())}><BsBag />
+                            <div className="absolute bg-black w-3 h-3 top-[5px] left-4 text-white flex items-center justify-center rounded text-xs">{wishList.length }</div>
+                        </span>
                     </div>
                 </div>
 
@@ -138,17 +153,37 @@ export default function NavBar() {
                 <div className={`hidden absolute right-4 top-[10px] xl:flex gap-4 items-center duration-100 ${isSticky ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                     <span className='flex items-center cursor-pointer' onClick={() => setShowMenu(pre => !pre)}>
                         <AiOutlineUser />
-                        <span className='hover:text-primary-color  duration-500'>Tài khoản</span>
+                        <span className='hover:text-primary-color  duration-500'>
+                            {
+                                isAuthenticated ?
+                                    <span>
+                                        {user.fullName}
+                                    </span>
+                                    :
+                                    <span>
+                                        Tài khoản
+                                    </span>
+                            }
+                        </span>
 
                         {showMenu && isSticky &&
 
                             <div className='absolute right-8 top-[50px] shadow-xl rounded-2xl z-10 bg-white '>
                                 <ul className='p-[10px] min-w-[200px]'>
-                                    <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleShowLogin}>Đăng nhập</a></li>
-                                    <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleShowRegister}>Đăng ký</a></li>
-                                    <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' >Facebook</a></li>
+                                    {
+                                        !isAuthenticated ?
+                                            <>
+                                                <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleShowLogin}>Đăng nhập</a></li>
+                                                <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleShowRegister}>Đăng ký</a></li>
+                                                <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' >Facebook</a></li>
+                                            </>
+                                            :
+                                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleLogout}>Đăng xuất</a></li>
+
+                                    }
                                 </ul>
                             </div>
+
 
                         }
                     </span>
@@ -159,10 +194,9 @@ export default function NavBar() {
 
             </nav>
 
-            <Login showLogin={showLogin} setShowLogin={setShowLogin} setShowRegister={setShowRegister} />
-            <Register showRegister={showRegister} setShowRegister={setShowRegister} setShowLogin={setShowLogin} />
-            <DrawerNavbar isOpen={showMenuMobileTalet} setIsOpen={setShowMenuMobileTablet} setShowLogin={setShowLogin}/>
-            <DrawerCart isOpen={showDrawerCart} setIsOpen={setShowDrawerCart} />
+
+            {/* <DrawerNavbar isOpen={showMenuMobileTalet} setIsOpen={setShowMenuMobileTablet} setShowLogin={setShowLogin} /> */}
+            <DrawerCart />
         </>
     )
 }

@@ -12,7 +12,7 @@ import { useRef, useEffect, useState } from 'react'
 
 type Props = {
     title: string,
-    products: { id: String, url: string, name: string, price: string }[],
+    products: { id: string, url: string, name: string, price: string }[],
     isFeatured?: boolean,
     isBOGO?: boolean
 }
@@ -82,7 +82,7 @@ export default function SlideProducts({ title, products, isFeatured = false, isB
                         <Slide slidesToScroll={1} canSwipe={false} duration={3000} slidesToShow={1} transitionDuration={500} autoplay={true} responsive={responsiveSettings}>
 
                             {
-                                products.map((e: any) => {
+                                products.map((e) => {
 
 
                                     const result = convertToSlug(e.name);

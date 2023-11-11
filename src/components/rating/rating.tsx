@@ -42,7 +42,7 @@ export default function RatingComponent() {
                         
                     </div>
                     <div className="sm:col-span-4 lg:col-span-1 border py-[10px] px-[15px] lg:flex lg:items-center ">
-                        <button className="bg-black text-white text-base w-full  rounded uppercase font-semibold lg:py-2 hover:bg-primary-color duration-500">Viết đánh giá của bạn</button>
+                        <button className="bg-black text-white text-base w-full  rounded uppercase font-semibold md:py-1 lg:py-2 hover:bg-primary-color duration-500">Viết đánh giá của bạn</button>
                     </div>
                 </div>
             </div>

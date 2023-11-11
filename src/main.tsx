@@ -9,9 +9,10 @@ import {
 import HomePage from './pages/homepage.tsx';
 import CategoryPage from './pages/categorypage.tsx';
 import DetailProductPage from './pages/detailProductpage.tsx';
-
+import 'react-toastify/dist/ReactToastify.css';
 import { Provider } from 'react-redux'
 import { store } from './redux/store.tsx';
+import OrderPage from './pages/orderpage.tsx';
 
 
 
@@ -29,8 +30,12 @@ const router = createBrowserRouter([
         element: <HomePage />
       },
       {
-        path: ':categoryName/',
+        path: 'category/:categoryName/',
         element: <CategoryPage />,
+      },
+      {
+        path: 'order/',
+        element: <OrderPage />,
       },
       {
         path: 'hat/:slug',

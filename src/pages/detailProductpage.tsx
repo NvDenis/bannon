@@ -4,9 +4,12 @@ import { Slide } from "react-slideshow-image";
 import { callGetProductByID } from "../services/api";
 import { useLocation } from "react-router-dom";
 import RatingComponent from "../components/rating/rating";
+import { useDispatch, useSelector } from "react-redux";
+import { doAddProductCart, doDrawerCartToggle, doLoginToggle } from "../redux/account/accountSlice";
 
 export default function DetailProductPage() {
 
+    const dispatch = useDispatch();
     const responsiveSettings = [{
         breakpoint: 700,
         settings: {
@@ -22,16 +25,29 @@ export default function DetailProductPage() {
     }]
     const [isImagesLoaded, setIsImagesLoaded] = useState(false);
     const [dataProduct, setDataProduct] = useState<{
+        id: string,
         img: string[];
         name: string;
         price: string;
         sold: number;
     }>({
+        id: '',
         img: [""],
         name: '',
         price: '',
         sold: 0,
     });
+    const isAuthenticated = useSelector((state: boolean) => state?.account?.isAuthenticated)
+
+    const handleOrder = async () => {
+        if (isAuthenticated) {
+            dispatch(doAddProductCart(dataProduct))
+            dispatch(doDrawerCartToggle())
+        } else {
+            dispatch(doLoginToggle());
+            return;
+        }
+    }
 
     // Sử dụng useLocation để lấy thông tin về URL hiện tại
     const location = useLocation();
@@ -45,6 +61,7 @@ export default function DetailProductPage() {
 
             if (res && res.data) {
                 const data = {
+                    id: res.data._id,
                     img: [
                         `${import.meta.env.VITE_URL_BACKEND}/images/hat/${res.data.thumbnail}`,
                         ...res.data.slider.map((e: any) => `${import.meta.env.VITE_URL_BACKEND}/images/hat/${e}`),
@@ -109,7 +126,7 @@ export default function DetailProductPage() {
                     </div>
 
                     <p className="text-xl font-semibold py-3">{dataProduct.price} VNĐ </p>
-                    <button className="bg-black text-white py-2 px-14 uppercase hover:bg-primary-color duration-300">đặt hàng</button>
+                    <button className="bg-black text-white py-2 px-14 uppercase hover:bg-primary-color duration-300" onClick={handleOrder}>đặt hàng</button>
                     <p className="py-5">Đã có <span>{dataProduct.sold}</span> lượt mua hàng</p>
                 </div>
             </div>

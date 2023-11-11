@@ -105,7 +105,7 @@ export default function MyProducts() {
                                         const result = convertToSlug(e.name);
 
                                         return (
-                                            <Link to={`${result}`} className='relative group' key={e.name}>
+                                            <Link to={`/category/${result}`} className='relative group' key={e.name}>
                                                 <div className=" w-[160px] h-[200px]  md:w-[210px] md:h-[250px] lg:w-[215px] lg:h-[300px] group-hover:-translate-y-1 duration-1000">
                                                     <img src={e.url} alt="" className='h-full w-full' />
                                                 </div>
