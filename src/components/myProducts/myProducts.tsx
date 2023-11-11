@@ -77,7 +77,7 @@ export default function MyProducts() {
         if (onScreen && !hasAnimated) {
             setHasAnimated(true);
         }
-    }, [onScreen]);
+    }, [hasAnimated, onScreen]);
 
 
     return (
@@ -99,7 +99,7 @@ export default function MyProducts() {
                             <Slide slidesToScroll={1} canSwipe={false} duration={4000} slidesToShow={1} transitionDuration={300} autoplay={true} responsive={responsiveSettings}>
 
                                 {
-                                    categorySlider.map((e: any) => {
+                                    categorySlider.map((e) => {
 
 
                                         const result = convertToSlug(e.name);

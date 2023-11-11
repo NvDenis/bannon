@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function useOnScreen(ref: any) {
     const [isIntersecting, setIntersecting] = useState(false);
 

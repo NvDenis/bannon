@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 import { callRegister } from "../../services/api"
 import { useDispatch, useSelector } from "react-redux"
 import { doLoginToggle, doRegisterToggle } from "../../redux/account/accountSlice"
+import { RootState } from "../../redux/store"
 
 interface IData {
     fullName: string,
@@ -16,7 +17,7 @@ export default function Register() {
     const dispatch = useDispatch();
     const [data, setData] = useState<IData>({ fullName: '', email: '', phone: '', password: '', confirmPassword: '' })
 
-    const handleOnChange = (e: any) => {
+    const handleOnChange = (e: { target: { name: string; value: string } }) => {
         const { name, value } = e.target;
         setData((pre) => {
             return {
@@ -26,8 +27,8 @@ export default function Register() {
         })
 
     }
-    
-    const registerToggle = useSelector(state => state.account.registerToggle)
+
+    const registerToggle = useSelector((state: RootState) => state.account.registerToggle)
 
     const handleRegister = async () => {
         try {

@@ -3,6 +3,7 @@ import nonson1 from '../assets/img/800_nonson_1 (4).png'
 import deleteBtn from '../assets/img/delete-button.png'
 import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
+import { RootState } from "../redux/store"
 
 export default function OrderPage() {
 
@@ -14,7 +15,7 @@ export default function OrderPage() {
 
   const [currentSteps, setCurrentSteps] = useState(0)
   const navigate = useNavigate()
-  const wishList = useSelector(state => state.account.user.wishList)
+  const wishList = useSelector((state: RootState) => state.account.user.wishList)
 
   return (
     <>
@@ -58,7 +59,7 @@ export default function OrderPage() {
                       <>
                         {
                           wishList?.length > 0 &&
-                          wishList.map(e => {
+                          wishList.map((e) => {
                             return (
                               <div className="py-[30px] flex border-b-[1px] border-gray-300">
                                 <div className="w-full md:w-[50%]  relative md:h-[90px] pl-[130px] md:pl-[170px]">

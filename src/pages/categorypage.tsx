@@ -6,9 +6,16 @@ import { callGetCategoryById } from '../services/api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { convertToSlug } from '../utils/convertToSlug';
 
+interface Product {
+    id: string;
+    img: string[];
+    name: string;
+    price: string;
+  }
+
 export default function CategoryPage() {
     const { categoryName } = useParams<{ categoryName: string }>();
-    const [products, setProducts] = useState<Array<[]>>([])
+    const [products, setProducts] = useState<Product[]>([])
     const [banner, setBanner] = useState('')
     const [title, setTitle] = useState('')
     const navigate = useNavigate();
@@ -20,10 +27,10 @@ export default function CategoryPage() {
 
 
             if (res && res.data) {
-                const data = res.data.products.map((e: any) => {
+                const data = res.data.products.map((e: { _id: string; thumbnail: string; slider: string[]; mainText: string; price: string; }) => {
                     return {
                         id: e._id,
-                        img: [`${import.meta.env.VITE_URL_BACKEND}/images/hat/${e.thumbnail}`, ...e.slider.map((slide: any) => `${import.meta.env.VITE_URL_BACKEND}/images/hat/${slide}`)],
+                        img: [`${import.meta.env.VITE_URL_BACKEND}/images/hat/${e.thumbnail}`, ...e.slider.map((slide: string) => `${import.meta.env.VITE_URL_BACKEND}/images/hat/${slide}`)],
                         name: e.mainText,
                         price: e.price,
                     }
@@ -50,7 +57,7 @@ export default function CategoryPage() {
         }
     }]
 
-    const handleRedirect = (e: any) => {
+    const handleRedirect = (e: { name: string; id: string; }) => {
         const slug = convertToSlug(e.name);
         // navigate(`${slug}?id=${e.id}`)
         navigate(`/hat/${slug}?id=${e.id}`)
@@ -81,12 +88,12 @@ export default function CategoryPage() {
             {/* products */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[2px]">
                 {
-                    products.map((proEle: any) => {
+                    products.map((proEle) => {
                         return (
                             <div className='bg-color-header relative group cursor-pointer' key={proEle.img[0]}>
                                 <Slide slidesToScroll={1} slidesToShow={1} canSwipe={false} transitionDuration={500} autoplay={false} responsive={responsiveSettings}>
                                     {
-                                        proEle?.img.map((e: any) => {
+                                        proEle?.img.map((e: string) => {
                                             return (
                                                 <div key={e[0]}   >
                                                     <div className="text-center group-hover:-translate-y-1 duration-1000" onClick={() => handleRedirect(proEle)}>

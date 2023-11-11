@@ -3,14 +3,15 @@ import { doDeleteProductCart, doDrawerCartToggle } from "../../redux/account/acc
 
 import { useNavigate } from "react-router-dom";
 import { Key, ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react";
+import { RootState } from "../../redux/store";
 
 
 
 export default function DrawerCart() {
 
-    const drawerCart = useSelector((state) => state.account.drawerCart)
+    const drawerCart = useSelector((state: RootState) => state.account.drawerCart)
     const dispatch = useDispatch();
-    const wishList = useSelector((state) => state.account.user.wishList)
+    const wishList = useSelector((state: RootState) => state.account.user.wishList)
     const navigate = useNavigate()
 
     return (
@@ -20,6 +21,7 @@ export default function DrawerCart() {
                 (drawerCart
                     ? " transition-opacity opacity-100 duration-500 translate-x-0  "
                     : " transition-all delay-300 opacity-0 translate-x-full  ")
+                    
             }
         >
             <section
@@ -42,11 +44,11 @@ export default function DrawerCart() {
                     <hr />
 
                     {
-                        wishList?.length > 0 ?
+                        wishList && wishList?.length > 0 ?
                             <div>
                                 <div>
                                     {
-                                        wishList.map((e: { id: Key | null | undefined; img: (string | undefined)[]; name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; price: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; }) => {
+                                        wishList.map((e: { id: Key | null | undefined; img: (string | undefined)[]; name: string | number | boolean | ReactElement<string, string | JSXElementConstructor<string>> | Iterable<ReactNode> | ReactPortal | null | undefined; price: string | number | boolean | ReactElement<string, string | JSXElementConstructor<string>> | Iterable<ReactNode> | ReactPortal | null | undefined; }) => {
                                             return (
                                                 <div className="flex p-6 items-center border-b border-b-gray-200" key={e.id}>
                                                     <div className="w-[130px] bg-color-header">

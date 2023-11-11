@@ -9,6 +9,8 @@ import { doLoginAction } from './redux/account/accountSlice'
 import { callFetchAccount } from './services/api'
 import Login from './components/login/login'
 import Register from './components/register/register'
+import DrawerNavbar from './components/drawerNavbar/drawerNavbar'
+import DrawerCart from './components/drawerCart/drawerCart'
 
 function App() {
 
@@ -38,6 +40,8 @@ function App() {
       <ToastContainer />
       <Login  />
       <Register  />
+      <DrawerCart />
+      <DrawerNavbar />
     </>
   )
 }

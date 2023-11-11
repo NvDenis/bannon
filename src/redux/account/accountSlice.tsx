@@ -1,5 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+interface IProduct {
+    id: string,
+    img: string[],
+    name: string,
+    price: string,
+}
+
 // Define a type for the slice state
 interface AccountState {
     isAuthenticated: boolean,
@@ -11,10 +18,11 @@ interface AccountState {
         email: string,
         phone: string,
         role: string,
-        wishList: unknown[]
+        wishList: IProduct[]
 
     },
     drawerCart: boolean,
+    drawerNav: boolean,
 }
 
 // Define the initial state using that type
@@ -31,6 +39,7 @@ const initialState: AccountState = {
         wishList: []
     },
     drawerCart: false,
+    drawerNav: false,
 }
 
 export const accountSlice = createSlice({
@@ -40,6 +49,9 @@ export const accountSlice = createSlice({
     reducers: {
         doDrawerCartToggle: (state) => {
             state.drawerCart = !state.drawerCart;
+        },
+        doDrawerNavToggle: (state) => {
+            state.drawerNav = !state.drawerNav;
         },
         doLoginToggle: (state) => {
             state.loginToggle = !state.loginToggle;
@@ -89,7 +101,7 @@ export const accountSlice = createSlice({
     },
 })
 
-export const { doLoginAction, doLogoutAction, doLoginToggle, doRegisterToggle, doDrawerCartToggle, doAddProductCart, doDeleteProductCart } = accountSlice.actions
+export const { doLoginAction, doLogoutAction, doLoginToggle, doRegisterToggle, doDrawerCartToggle, doAddProductCart, doDeleteProductCart, doDrawerNavToggle } = accountSlice.actions
 
 
 export default accountSlice.reducer

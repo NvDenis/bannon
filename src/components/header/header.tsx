@@ -5,28 +5,29 @@ import { AiOutlineUser } from 'react-icons/ai';
 import logo from '../../assets/img/logo_Non_Son_doc.svg'
 import bglogo from '../../assets/img/bglogo.png'
 import { useState } from 'react';
-
 import NavBar from '../nav/nav.tsx';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { doDrawerCartToggle, doLoginToggle, doLogoutAction, doRegisterToggle } from '../../redux/account/accountSlice.tsx';
 import { callLogout } from '../../services/api.tsx';
+import { RootState } from '../../redux/store.tsx';
 
 export default function Header() {
-  const user = useSelector((state) => state.account.user)
-  const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
-
+  const user = useSelector((state: RootState) => state.account.user)
+  const isAuthenticated = useSelector((state: RootState) => state.account.isAuthenticated);
   const [showMenu, setShowMenu] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const wishList = useSelector((state: RootState) => state.account.user.wishList)
 
-  const handleShowLogin = (e) => {
+
+  const handleShowLogin = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     dispatch(doLoginToggle())
   }
 
-  const handleShowRegister = (e) => {
+  const handleShowRegister = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     dispatch(doRegisterToggle())
   }
@@ -89,7 +90,10 @@ export default function Header() {
 
                 }
               </div>
-              <span className='flex items-center hidden lg:flex'><BsBag /><span className=' hover:text-primary-color cursor-pointer duration-500' onClick={() => dispatch(doDrawerCartToggle())}> 0 Sản phẩm</span></span>
+              <span className='flex items-center hidden lg:flex relative' onClick={() => dispatch(doDrawerCartToggle())}>
+                <BsBag />
+                <span className=' hover:text-primary-color cursor-pointer duration-500'> {wishList?.length > 0 ? wishList.length : 0} Sản phẩm</span>
+              </span>
               <span className='flex items-center lg:hidden'><FiFacebook /><span className=' hover:text-primary-color cursor-pointer duration-500'> Mua hàng qua Facebook</span></span>
             </div>
           </div>

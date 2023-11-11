@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Slide } from "react-slideshow-image";
-
 import { callGetProductByID } from "../services/api";
 import { useLocation } from "react-router-dom";
 import RatingComponent from "../components/rating/rating";
 import { useDispatch, useSelector } from "react-redux";
 import { doAddProductCart, doDrawerCartToggle, doLoginToggle } from "../redux/account/accountSlice";
+import { RootState } from "../redux/store";
 
 export default function DetailProductPage() {
 
@@ -37,7 +37,7 @@ export default function DetailProductPage() {
         price: '',
         sold: 0,
     });
-    const isAuthenticated = useSelector((state: boolean) => state?.account?.isAuthenticated)
+    const isAuthenticated = useSelector((state: RootState) => state?.account?.isAuthenticated)
 
     const handleOrder = async () => {
         if (isAuthenticated) {
@@ -64,7 +64,7 @@ export default function DetailProductPage() {
                     id: res.data._id,
                     img: [
                         `${import.meta.env.VITE_URL_BACKEND}/images/hat/${res.data.thumbnail}`,
-                        ...res.data.slider.map((e: any) => `${import.meta.env.VITE_URL_BACKEND}/images/hat/${e}`),
+                        ...res.data.slider.map((e: string) => `${import.meta.env.VITE_URL_BACKEND}/images/hat/${e}`),
                     ],
                     name: res.data.mainText,
                     price: res.data.price,

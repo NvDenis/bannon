@@ -3,6 +3,7 @@ import { callLogin } from "../../services/api"
 import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from "react-redux"
 import { doLoginAction, doLoginToggle, doRegisterToggle } from "../../redux/account/accountSlice"
+import { RootState } from "../../redux/store"
 
 
 
@@ -12,7 +13,7 @@ interface IData {
 }
 
 export default function Login() {
-    const loginToggle = useSelector(state => state.account.loginToggle)
+    const loginToggle = useSelector((state: RootState) => state.account.loginToggle)
     const dispatch = useDispatch();
     const [data, setData] = useState<IData>({ email: '', password: '' })
 
@@ -21,7 +22,7 @@ export default function Login() {
         dispatch(doRegisterToggle())
     }
 
-    const handleOnChange = (e: unknown) => {
+    const handleOnChange = (e: { target: { name: string; value: string } }) => {
         const { name, value } = e.target;
 
         setData((pre) => {
