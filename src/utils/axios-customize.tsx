@@ -25,7 +25,7 @@ instance.interceptors.request.use(function (config) {
 });
 
 
-const NO_RETRY_HEADER = 'x-no-retry'
+// const NO_RETRY_HEADER = 'x-no-retry'
 
 // Add a response interceptor
 instance.interceptors.response.use(function (response) {

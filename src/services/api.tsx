@@ -1,10 +1,12 @@
 import axios from '../utils/axios-customize'
 
-const callLogin = (data:any) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const callLogin = (data: any) => {
     return axios.post('/user/login', data)
 }
 
-const callRegister = (data:any) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const callRegister = (data: any) => {
     return axios.post('/user/register', data)
 }
 
@@ -16,9 +18,9 @@ const callFetchAccount = () => {
     return axios.get('/user/account')
 }
 
-const callRefreshToken = () => {
-    return axios.get('/user/refreshToken')
-}
+// const callRefreshToken = () => {
+//     return axios.get('/user/refreshToken')
+// }
 
 const callGetCategory = () => {
     return axios.get('/category/')
@@ -48,7 +50,7 @@ export {
     callGetProductByID,
     callGetFeaturedProducts,
     callGetBOGOProducts,
-    callRefreshToken,
+    // callRefreshToken,
     callFetchAccount,
     callLogout,
 }
