@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { doDeleteProductCart, doDrawerCartToggle } from "../../redux/account/accountSlice";
 
 import { useNavigate } from "react-router-dom";
-import { Key, ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react";
+import { useState, useEffect } from "react";
 import { RootState } from "../../redux/store";
 
 
@@ -13,6 +13,28 @@ export default function DrawerCart() {
     const dispatch = useDispatch();
     const wishList = useSelector((state: RootState) => state.account.user.wishList)
     const navigate = useNavigate()
+    const [totalCost, setTotalCost] = useState<string>('')
+
+    useEffect(() => {
+        const calculatedTotalCost = wishList?.reduce((acc, product) => {
+          // Loại bỏ dấu chấm và chuyển đổi sang số
+          const priceWithoutComma = product?.price?.replace(/\./g, "");
+          const price = parseFloat(priceWithoutComma);
+          acc += price * product.quantity;
+          return acc;
+        }, 0);
+      
+        // Định dạng tổng giá trị theo định dạng số có dấu chấm
+        const formattedTotalCost = calculatedTotalCost?.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+      
+        // Loại bỏ chữ "₫" từ định dạng số
+        const totalCostWithoutSymbol = formattedTotalCost?.replace("₫", "");
+      
+        // Cập nhật state với tổng giá trị đã tính toán và không có chữ "₫"
+        setTotalCost(totalCostWithoutSymbol);
+      }, [wishList]);
+      
+
 
     return (
         <main
@@ -21,7 +43,7 @@ export default function DrawerCart() {
                 (drawerCart
                     ? " transition-opacity opacity-100 duration-500 translate-x-0  "
                     : " transition-all delay-300 opacity-0 translate-x-full  ")
-                    
+
             }
         >
             <section
@@ -48,7 +70,7 @@ export default function DrawerCart() {
                             <div>
                                 <div>
                                     {
-                                        wishList.map((e: { id: Key | null | undefined; img: (string | undefined)[]; name: string | number | boolean | ReactElement<string, string | JSXElementConstructor<string>> | Iterable<ReactNode> | ReactPortal | null | undefined; price: string | number | boolean | ReactElement<string, string | JSXElementConstructor<string>> | Iterable<ReactNode> | ReactPortal | null | undefined; }) => {
+                                        wishList?.map((e) => {
                                             return (
                                                 <div className="flex p-6 items-center border-b border-b-gray-200" key={e.id}>
                                                     <div className="w-[130px] bg-color-header">
@@ -56,7 +78,7 @@ export default function DrawerCart() {
                                                     </div>
                                                     <div className="flex flex-col ml-2 w-full">
                                                         <div className="font-light text-xl">{e.name}</div>
-                                                        <div className="font-light">1 x <span className="text-primary-color uppercase">{e.price} vnd</span></div>
+                                                        <div className="font-light">{e.quantity} x <span className="text-primary-color uppercase">{e.price} vnd</span></div>
                                                     </div>
                                                     <span className="relative cursor-pointer" onClick={() => dispatch(doDeleteProductCart(e.id))} >
                                                         <div className='absolute bg-black -right-2 top-[0] w-4 h-4 rounded-2xl cursor-pointer hover:bg-primary-color  duration-500'>
@@ -71,7 +93,7 @@ export default function DrawerCart() {
                                 <div className="bg-color-header px-6 py-2">
                                     <div className="uppercase flex justify-between">
                                         <div className="">tổng giỏ hàng</div>
-                                        <div className="">1,150,000 vnđ</div>
+                                        <div className="">{totalCost}vnđ</div>
                                     </div>
                                     <div className="uppercase flex justify-between">
                                         <div className="">ưu đãi</div>
@@ -79,14 +101,17 @@ export default function DrawerCart() {
                                     </div>
                                     <div className="uppercase flex justify-between">
                                         <div className="">tiền hàng</div>
-                                        <div className=" text-primary-color">1,150,000 vnđ</div>
+                                        <div className=" text-primary-color">
+                                            {totalCost}
+                                            vnđ
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="p-6">
                                     <button className="py-2 bg-black text-white hover:bg-primary-color uppercase w-full duration-500" onClick={() => {
                                         navigate('/order')
                                         dispatch(doDrawerCartToggle())
-                                    } }>xem giỏ hàng</button>
+                                    }}>xem giỏ hàng</button>
                                 </div>
                             </div>
                             :

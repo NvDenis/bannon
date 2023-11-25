@@ -4,6 +4,7 @@ import { BsTelephone } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { doDrawerNavToggle, doLoginToggle } from "../../redux/account/accountSlice";
+import { Link } from "react-router-dom";
 
 
 
@@ -39,18 +40,18 @@ const DrawerNavbar: React.FC = () => {
 
                     <div className="flex justify-between">
                         <ul className=" ">
-                            <li className='uppercase' ><a href={'/non-da'} className='inline-block py-3 px-4 text-sm'>Nón da</a></li>
-                            <li className='uppercase' ><a href={'/non-vanh'} className='inline-block py-3 px-4 text-sm'>nón vành</a></li>
-                            <li className='uppercase' ><a href={'/non-ket'} className='inline-block py-3 px-4 text-sm'>nón kết</a></li>
-                            <li className='uppercase' ><a href={'/non-phot'} className='inline-block py-3 px-4 text-sm'>nón phớt </a></li>
-                            <li className='uppercase' ><a href={'/non-tre-em'} className='inline-block py-3 px-4 text-sm'>nón trẻ em</a></li>
+                            <li className='uppercase' ><Link onClick={() => dispatch(doDrawerNavToggle())} to={'/category/non-da'} className='inline-block py-3 px-4 text-sm'>Nón da</Link></li>
+                            <li className='uppercase' ><Link onClick={() => dispatch(doDrawerNavToggle())} to={'/category/non-vanh'} className='inline-block py-3 px-4 text-sm'>nón vành</Link></li>
+                            <li className='uppercase' ><Link onClick={() => dispatch(doDrawerNavToggle())} to={'/category/non-ket'} className='inline-block py-3 px-4 text-sm'>nón kết</Link></li>
+                            <li className='uppercase' ><Link onClick={() => dispatch(doDrawerNavToggle())} to={'/category/non-phot'} className='inline-block py-3 px-4 text-sm'>nón phớt </Link></li>
+                            <li className='uppercase' ><Link onClick={() => dispatch(doDrawerNavToggle())} to={'/category/non-tre-em'} className='inline-block py-3 px-4 text-sm'>nón trẻ em</Link></li>
                         </ul>
                         <ul className="">
-                            <li className='uppercase' ><a href={'/non-dan-tay'} className='inline-block py-3 px-4 text-sm'>Nón đan tay</a></li>
-                            <li className='uppercase' ><a href={'/non-bao-hiem'} className='inline-block py-3 px-4 text-sm'>nón bảo hiểm</a></li>
-                            <li className='uppercase' ><a href={'/non-snapback'} className='inline-block py-3 px-4 text-sm'>nón snapback</a></li>
-                            <li className='uppercase' ><a href={'/non-jacket'} className='inline-block py-3 px-4 text-sm'>nón jacket </a></li>
-                            <li className='uppercase' ><a href={"/#"} className='inline-block py-3 px-4 text-sm'>flashsale</a></li>
+                            <li className='uppercase' ><Link onClick={() => dispatch(doDrawerNavToggle())} to={'/category/non-dan-tay'} className='inline-block py-3 px-4 text-sm'>Nón đan tay</Link></li>
+                            <li className='uppercase' ><Link onClick={() => dispatch(doDrawerNavToggle())} to={'/category/non-bao-hiem'} className='inline-block py-3 px-4 text-sm'>nón bảo hiểm</Link></li>
+                            <li className='uppercase' ><Link onClick={() => dispatch(doDrawerNavToggle())} to={'/category/non-snapback'} className='inline-block py-3 px-4 text-sm'>nón snapback</Link></li>
+                            <li className='uppercase' ><Link onClick={() => dispatch(doDrawerNavToggle())} to={'/category/non-jacket'} className='inline-block py-3 px-4 text-sm'>nón jacket </Link></li>
+                            <li className='uppercase' ><Link onClick={() => dispatch(doDrawerNavToggle())} to={"/category/#"} className='inline-block py-3 px-4 text-sm'>flashsale</Link></li>
                         </ul>
                     </div>
                     <hr />
@@ -72,6 +73,7 @@ const DrawerNavbar: React.FC = () => {
                             <li><a className='uppercase text-sm flex items-center gap-2 px-4 py-5'><BiMap /> Hệ thống cửa hàng</a></li>
                             <li><a className='uppercase text-sm flex items-center gap-2 px-4 py-5' onClick={() => {
                                 dispatch(doLoginToggle());
+                                dispatch(doDrawerNavToggle())
                             }}><AiOutlineUser /> tài khoản</a></li>
                             <li><a className='uppercase text-sm flex items-center gap-2 px-4 py-5'><AiOutlineMenu /> theo dõi đơn hàng</a></li>
                         </ul>

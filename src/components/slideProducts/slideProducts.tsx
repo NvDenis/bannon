@@ -5,9 +5,8 @@ import { convertToSlug } from '../../utils/convertToSlug';
 import { Rating } from 'react-simple-star-rating';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import BOGO from '../../assets/img/non_son_sticker_non_son.png'
-import { motion } from 'framer-motion';
-import useOnScreen from '../../HookCustomize/useOnScreen'
-import { useRef, useEffect, useState } from 'react'
+
+import { Fade } from "react-awesome-reveal";
 
 
 type Props = {
@@ -54,27 +53,16 @@ export default function SlideProducts({ title, products, isFeatured = false, isB
 
     ]
 
-    const ref = useRef<HTMLDivElement | null>(null);
-    const onScreen = useOnScreen(ref);
-    const [hasAnimated, setHasAnimated] = useState(false);
 
-    useEffect(() => {
-        if (onScreen && !hasAnimated) {
-            setHasAnimated(true);
-        }
-    }, [onScreen]);
 
     return (
         <div className="px-8  mt-20">
             <hr />
-            <motion.h1
-                className="text-center text-xl lg:text-4xl uppercase font-medium mt-12"
-                ref={ref}
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: hasAnimated ? 0 : 100, opacity: hasAnimated ? 1 : 0 }}
-                transition={{ duration: 1 }}
-            >{title}
-            </motion.h1>
+            <Fade duration={2000} fraction={0} triggerOnce direction="up">
+                <div className="text-center text-xl lg:text-4xl uppercase font-medium mt-12">
+                    {title}
+                </div>
+            </Fade>
 
             <div className="mt-6">
                 {

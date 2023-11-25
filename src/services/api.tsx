@@ -1,5 +1,22 @@
 import axios from '../utils/axios-customize'
 
+interface IData {
+    userId: string,
+    fullName: string;
+    phone: string;
+    email: string;
+    address: string;
+    note: string;
+    detail: {
+        id: string;
+        thumbnail: string;
+        productName: string;
+        quantity: number;
+        price: string;
+    }[];
+    totalPrice: string;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const callLogin = (data: any) => {
     return axios.post('/user/login', data)
@@ -26,7 +43,7 @@ const callGetCategory = () => {
     return axios.get('/category/')
 }
 
-const callGetCategoryById = (params: any) => {
+const callGetCategoryById = (params: string | undefined) => {
     return axios.get(`/category/${params}`,)
 }
 
@@ -42,6 +59,15 @@ const callGetBOGOProducts = () => {
     return axios.get('/product/buy-one-get-one')
 }
 
+const callOrder = (data: IData) => {
+    return axios.post('/order/', data)
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const callGetHistory = ( ) => {
+    return axios.get('/history')
+}
+
 export {
     callRegister,
     callLogin,
@@ -53,4 +79,6 @@ export {
     // callRefreshToken,
     callFetchAccount,
     callLogout,
+    callOrder,
+    callGetHistory,
 }

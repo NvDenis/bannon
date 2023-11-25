@@ -36,8 +36,8 @@ export default function Login() {
     const handleLogin = async () => {
         try {
             const res = await callLogin(data);
-
-            if (res && res?.data && res?.data?.user?._id) {
+            console.log('check res ', res);
+            if (res && res?.data && res?.data?.user?.id) {
                 localStorage.setItem("access_token", res.data.access_token);
                 dispatch(doLoginAction(res.data.user));
                 toast.success('Login successfully!')

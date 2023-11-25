@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
-
 import { Slide } from 'react-slideshow-image';
-
 import { callGetCategoryById } from '../services/api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { convertToSlug } from '../utils/convertToSlug';
+import { Fade } from "react-awesome-reveal";
+
 
 interface Product {
     id: string;
     img: string[];
     name: string;
     price: string;
-  }
+}
 
 export default function CategoryPage() {
     const { categoryName } = useParams<{ categoryName: string }>();
@@ -36,12 +36,18 @@ export default function CategoryPage() {
                     }
                 })
                 setProducts(data);
-                setBanner(`${import.meta.env.VITE_URL_BACKEND}/images/hat/${res.data.banner}`);
+                if (res.data.banner === '') {
+                    setBanner('')
+                } else {
+                    setBanner(`${import.meta.env.VITE_URL_BACKEND}/images/hat/${res.data.banner}`);
+
+                }
+
                 setTitle(res.data.title)
             }
         }
         getCategoryById();
-    }, [])
+    }, [categoryName])
 
     const responsiveSettings = [{
         breakpoint: 800,
@@ -66,10 +72,22 @@ export default function CategoryPage() {
     return (
         <div className='px-6' >
             {/* banner */}
-            <div className="relative">
-                <img src={banner} alt="" className='' />
-                <p className="absolute top-1/2 left-1/2 transform -translate-x-[50%] -translate-y-[50%] text-2xl md:text-3xl lg:text-5xl text-white uppercase">{title}</p>
-            </div>
+            {
+                banner !== '' ?
+                    <div className="relative">
+                        <img src={banner} alt="" className='' />
+                        <p className="absolute top-1/2 left-1/2 transform -translate-x-[50%] -translate-y-[50%] text-2xl md:text-3xl lg:text-5xl text-white uppercase">{title}</p>
+                    </div>
+                    :
+
+                    <div className="bg-color-header uppercase text-3xl flex justify-center items-center py-8 font-semibold">
+                        <Fade duration={2000} fraction={0} triggerOnce direction="up">
+                            {title}
+                        </Fade>
+
+                    </div>
+
+            }
 
             {/* filter */}
             <div className="flex justify-between py-4">

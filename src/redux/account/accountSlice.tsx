@@ -5,6 +5,7 @@ interface IProduct {
     img: string[],
     name: string,
     price: string,
+    quantity: number,
 }
 
 // Define a type for the slice state
@@ -13,13 +14,12 @@ interface AccountState {
     loginToggle: boolean,
     registerToggle: boolean,
     user: {
-        _id: string,
+        id: string,
         fullName: string,
         email: string,
         phone: string,
         role: string,
-        wishList: IProduct[]
-
+        wishList: IProduct[],
     },
     drawerCart: boolean,
     drawerNav: boolean,
@@ -31,12 +31,12 @@ const initialState: AccountState = {
     loginToggle: false,
     registerToggle: false,
     user: {
-        _id: '',
+        id: '',
         fullName: '',
         email: '',
         phone: '',
         role: '',
-        wishList: []
+        wishList: [],
     },
     drawerCart: false,
     drawerNav: false,
@@ -47,6 +47,9 @@ export const accountSlice = createSlice({
     // `createSlice` will infer the state type from the `initialState` argument
     initialState,
     reducers: {
+        doResetCart: (state) => {
+            state.user.wishList = []
+        },
         doDrawerCartToggle: (state) => {
             state.drawerCart = !state.drawerCart;
         },
@@ -69,39 +72,67 @@ export const accountSlice = createSlice({
             // Update the state with the new wishList array
             state.user.wishList = updatedWishList;
 
-        }
-        ,
-        doAddProductCart: (state, action) => {
-            const product: { id: string, img: string[]; name: string; price: string; sold: number } = action.payload;
+        },
+        doOnChangeQuantity: (state, action) => {
+            const { id, quantity } = action.payload
 
-            // Ensure that state.user is not optional
-            if (state.user) {
-                // Check if state.user.wishList is defined before accessing it
-                state.user.wishList = state.user.wishList ? [...state.user.wishList, product] : [product];
+            // Kiểm tra xem sản phẩm có tồn tại trong wishList không
+            const existingProductIndex = state.user?.wishList.findIndex(product => product.id === id);
+
+            if (existingProductIndex !== -1) {
+                // Ví dụ sử dụng optional chaining và kiểm tra trước khi gán
+                if (state.user?.wishList) {
+                    const existingProductIndex = state.user.wishList.findIndex(product => product.id === id);
+
+                    if (existingProductIndex !== -1) {
+                        state.user.wishList[existingProductIndex].quantity = quantity;
+                    }
+                }
+            }
+
+        },
+        doAddProductCart: (state, action) => {
+            const productToAdd: IProduct = action.payload;
+
+            const existingProductIndex = state.user?.wishList.findIndex(product => product.id === productToAdd.id);
+            if (existingProductIndex !== -1) {
+                state.user.wishList[existingProductIndex].quantity += 1;
+            } else {
+                state.user.wishList.push(productToAdd)
             }
         },
-
-        // Use the PayloadAction type to declare the contents of `action.payload`
         doLoginAction: (state, action) => {
             state.isAuthenticated = true;
             state.user = action.payload
         },
         doLogoutAction: (state) => {
+            // Kiểm tra trước khi đặt lại state.user
             localStorage.removeItem('access_token');
             state.isAuthenticated = false;
             state.user = {
-                _id: '',
+                id: '',
                 fullName: '',
                 email: '',
                 phone: '',
                 role: '',
                 wishList: []
-            }
+            };
         },
     },
 })
 
-export const { doLoginAction, doLogoutAction, doLoginToggle, doRegisterToggle, doDrawerCartToggle, doAddProductCart, doDeleteProductCart, doDrawerNavToggle } = accountSlice.actions
+export const {
+    doLoginAction,
+    doLogoutAction,
+    doLoginToggle,
+    doRegisterToggle,
+    doDrawerCartToggle,
+    doAddProductCart,
+    doDeleteProductCart,
+    doDrawerNavToggle,
+    doOnChangeQuantity,
+    doResetCart
+} = accountSlice.actions
 
 
 export default accountSlice.reducer

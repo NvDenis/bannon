@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Provider } from 'react-redux'
 import { store } from './redux/store.tsx';
 import OrderPage from './pages/orderpage.tsx';
+import HistoryPage from './pages/historypage.tsx';
 
 
 
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: 'category/:categoryName/',
         element: <CategoryPage />,
+      },
+      {
+        path: 'history/',
+        element: <HistoryPage />,
       },
       {
         path: 'order/',

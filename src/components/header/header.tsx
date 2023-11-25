@@ -43,6 +43,7 @@ export default function Header() {
   }
 
 
+
   return (
     <>
       <header >
@@ -77,13 +78,16 @@ export default function Header() {
                       {
                         !isAuthenticated ?
                           <>
-                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleShowLogin}>Đăng nhập</a></li>
-                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleShowRegister}>Đăng ký</a></li>
-                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' >Facebook</a></li>
+                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color cursor-pointer' onClick={handleShowLogin}>Đăng nhập</a></li>
+                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color cursor-pointer' onClick={handleShowRegister}>Đăng ký</a></li>
+                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color cursor-pointer' >Facebook</a></li>
                           </>
                           :
-                          <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color cursor-pointer' onClick={handleLogout} >Đăng xuất</a></li>
+                          <ul>
+                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color cursor-pointer' onClick={handleLogout} >Đăng xuất</a></li>
+                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color cursor-pointer' onClick={() => navigate('/history')} >Xem lịch sử đặt hàng</a></li>
 
+                          </ul>
                       }
                     </ul>
                   </div>

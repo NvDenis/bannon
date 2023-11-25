@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { callLogout } from "../../services/api";
 import { doDrawerCartToggle, doDrawerNavToggle, doLoginToggle, doLogoutAction, doRegisterToggle } from "../../redux/account/accountSlice";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RootState } from "../../redux/store";
 
 
@@ -63,69 +63,69 @@ export default function NavBar() {
             {/* navbar desktop*/}
             <ul className={`w-full flex justify-center gap-4 mt-[4.5rem] hidden lg:flex p-2   `}>
                 <li className='text-sm cursor-pointer  '>
-                    <a href={'/category/non-da'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN DA</a>
+                    <Link to={'/category/non-da'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN DA</Link>
                 </li>
                 <li className='text-sm cursor-pointer '>
-                    <a href={'/category/non-snapback'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN SNAPBACK</a>
+                    <Link to={'/category/non-snapback'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN SNAPBACK</Link>
                 </li>
                 <li className='text-sm cursor-pointer '>
-                    <a href={'/category/non-ket'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN KẾT</a>
+                    <Link to={'/category/non-ket'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN KẾT</Link>
                 </li>
                 <li className='text-sm cursor-pointer '>
-                    <a href={'/category/non-jacket'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN JACKET</a>
+                    <Link to={'/category/non-jacket'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN JACKET</Link>
                 </li>
                 <li className='text-sm cursor-pointer '>
-                    <a href={'/category/non-dan-tay'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN ĐAN TAY</a>
+                    <Link to={'/category/non-dan-tay'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN ĐAN TAY</Link>
                 </li>
                 <li className='text-sm cursor-pointer relative group '>
-                    <a href={'/category/non-vanh'} className='hover:text-[#e21e70] duration-500 block py-2'>
+                    <Link to={'/category/non-vanh'} className='hover:text-[#e21e70] duration-500 block py-2'>
                         NÓN VÀNH
-                    </a>
+                    </Link>
 
                     {/* subnav */}
                     <div className='absolute bg-slate-50 -ml-[467px] p-[20px] w-[830px] flex-col border-t border-solid border-gray-300 mt-[9px] opacity-0 invisible group-hover:opacity-100 group-hover:visible  duration-500 z-[7] '>
                         <div className="w-[230px]">
                             <div className='text-base font-medium py-[5px] border-b border-solid border-gray-500 mb-[20px] hover:text-primary-color duration-500'>NÓN VÀNH</div>
                             <ul>
-                                <li className=''><a className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón vành thời trang</a></li>
-                                <li className=''><a className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón đi nắng</a></li>
-                                <li className=''><a className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón bucket</a></li>
+                                <li className=''><a href="#" className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón vành thời trang</a></li>
+                                <li className=''><a href="#" className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón đi nắng</a></li>
+                                <li className=''><a href="#" className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón bucket</a></li>
                             </ul>
                         </div>
                     </div>
                 </li>
                 <li className='text-sm cursor-pointer '>
-                    <a href={'/category/non-phot'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN PHỚT</a>
+                    <Link to={'/category/non-phot'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN PHỚT</Link>
                 </li>
                 <li className='text-sm cursor-pointer relative group '>
-                    <a href={'/category/non-bao-hiem'} className='hover:text-[#e21e70] duration-500 block py-2'>
+                    <Link to={'/category/non-bao-hiem'} className='hover:text-[#e21e70] duration-500 block py-2'>
                         NÓN BẢO HIỂM
 
-                    </a>
+                    </Link>
                     {/* subnav */}
                     <div className='absolute bg-slate-50 -ml-[643px] p-[20px] w-[830px] flex-col border-t border-solid border-gray-300 mt-[9px] opacity-0 invisible group-hover:opacity-100 group-hover:visible  duration-500 '>
                         <div className="w-[230px]">
                             <div className='text-base font-medium py-[5px] border-b border-solid border-gray-500 mb-[20px] hover:text-primary-color duration-500'>NÓN BẢO HIỂM</div>
                             <ul>
-                                <li className=''><a className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón bảo hiểm trơn</a></li>
-                                <li className=''><a className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón bảo hiểm có kính</a></li>
-                                <li className=''><a className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón bảo hiểm sơn mài</a></li>
-                                <li className=''><a className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón bảo hiểm họa tiết</a></li>
-                                <li className=''><a className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón bảo hiểm 3/4</a></li>
+                                <li className=''><a href="#" className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón bảo hiểm trơn</a></li>
+                                <li className=''><a href="#" className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón bảo hiểm có kính</a></li>
+                                <li className=''><a href="#" className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón bảo hiểm sơn mài</a></li>
+                                <li className=''><a href="#" className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón bảo hiểm họa tiết</a></li>
+                                <li className=''><a href="#" className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón bảo hiểm 3/4</a></li>
                             </ul>
                         </div>
                     </div>
                 </li>
                 <li className='text-sm cursor-pointer relative group '>
-                    <a href={'/category/non-tre-em'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN TRẺ EM</a>
+                    <Link to={'/category/non-tre-em'} className='hover:text-[#e21e70] duration-500 block py-2'>NÓN TRẺ EM</Link>
 
                     {/* subnav */}
                     <div className='absolute bg-slate-50 -ml-[757px] p-[20px] w-[830px] flex-col border-t border-solid border-gray-300 mt-[9px] opacity-0 invisible group-hover:opacity-100 group-hover:visible  duration-500 '>
                         <div className="w-[230px]">
                             <div className='text-base font-medium py-[5px] border-b border-solid border-gray-500 mb-[20px] hover:text-primary-color duration-500'>NÓN BẢO HIỂM</div>
                             <ul>
-                                <li className=''><a className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón bảo hiểm trẻ em</a></li>
-                                <li className=''><a className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón vãi trẻ em</a></li>
+                                <li className=''><a href="#" className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón bảo hiểm trẻ em</a></li>
+                                <li className=''><a href="#" className='uppercase block py-[10px] border-b border-solid border-gray-300 hover:text-primary-color relative duration-500 after:content-[""] after:absolute after:left-0 after:top-[100%] after:w-[0] after:h-[1px]  after:bg-primary-color after:hover:w-[100%] after:duration-500  '>Nón vãi trẻ em</a></li>
                             </ul>
                         </div>
                     </div>
@@ -176,8 +176,11 @@ export default function NavBar() {
                                             <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' >Facebook</a></li>
                                         </>
                                         :
-                                        <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleLogout}>Đăng xuất</a></li>
+                                        <>
+                                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color' onClick={handleLogout}>Đăng xuất</a></li>
+                                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color cursor-pointer' onClick={() => navigate('/history')} >Xem lịch sử đặt hàng</a></li>
 
+                                        </>
                                 }
                             </ul>
                         </div>
@@ -185,7 +188,7 @@ export default function NavBar() {
 
                     }
                 </span>
-                <span className="block pl-1 relative" onClick={() => dispatch(doDrawerCartToggle())}><BsBag />
+                <span className="block pl-1 relative cursor-pointer" onClick={() => dispatch(doDrawerCartToggle())}><BsBag />
                     <div className="absolute bg-black w-3 h-3 top-[5px] left-4 text-white flex items-center justify-center rounded text-xs">{(wishList?.length > 0) ? wishList.length : 0}</div>
                 </span>
             </div>

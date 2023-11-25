@@ -38,10 +38,17 @@ export default function DetailProductPage() {
         sold: 0,
     });
     const isAuthenticated = useSelector((state: RootState) => state?.account?.isAuthenticated)
-
+    
     const handleOrder = async () => {
-        if (isAuthenticated) {
-            dispatch(doAddProductCart(dataProduct))
+        if (isAuthenticated === true) {
+            const data = {
+                id: dataProduct.id,
+                img: dataProduct.img,
+                name: dataProduct.name,
+                price: dataProduct.price,
+                quantity: 1
+            }
+            dispatch(doAddProductCart(data))
             dispatch(doDrawerCartToggle())
         } else {
             dispatch(doLoginToggle());

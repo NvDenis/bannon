@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 import { callGetCategory } from '../../services/api';
 import { convertToSlug } from '../../utils/convertToSlug';
-import { motion } from 'framer-motion';
-import useOnScreen from '../../HookCustomize/useOnScreen'
-import { useRef } from 'react'
+import { Fade } from "react-awesome-reveal";
+
+
 
 export default function MyProducts() {
 
-    
+
     const responsiveSettings = [
         {
             breakpoint: 1200,
@@ -19,7 +19,7 @@ export default function MyProducts() {
                 slidesToScroll: 1
             }
         },
-        
+
         {
             breakpoint: 800,
             settings: {
@@ -27,7 +27,7 @@ export default function MyProducts() {
                 slidesToScroll: 1
             }
         },
-        
+
         {
             breakpoint: 500,
             settings: {
@@ -69,29 +69,16 @@ export default function MyProducts() {
 
     }, [])
 
-    const ref = useRef<HTMLDivElement | null>(null);
-    const onScreen = useOnScreen(ref);
-    const [hasAnimated, setHasAnimated] = useState(false);
-
-    useEffect(() => {
-        if (onScreen && !hasAnimated) {
-            setHasAnimated(true);
-        }
-    }, [hasAnimated, onScreen]);
 
 
     return (
         <>
             <div className="px-8 mb-14">
-                <motion.div
-                    ref={ref}
-                    initial={{ y: 100, opacity: 0 }}
-                    animate={{ y: hasAnimated ? 0 : 100, opacity: hasAnimated ? 1 : 0 }}
-                    transition={{ duration: 1 }}
-                >
+
+                <Fade duration={2000} fraction={0} triggerOnce direction="up">
                     <h1 className="text-center text-xl lg:text-4xl uppercase font-medium animate-slide-up-on-load">sản phẩm nón sơn</h1>
                     <p className="text-center py-4 text-sm lg:text-base animate-slide-up-on-load">Chất lượng, đẳng cấp và tinh tế thể hiện ở từng chi tiết sản phẩm</p>
-                </motion.div>
+                </Fade>
 
                 <div className="">
                     {
