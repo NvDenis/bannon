@@ -17,6 +17,10 @@ interface IData {
     totalPrice: string;
 }
 
+export const callUpdateInfo = ({ userId, phone, fullName }: { userId: string, phone: string, fullName: string }) => {
+    return axios.post(`user/update-info`, { userId, phone, fullName })
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const callLogin = (data: any) => {
     return axios.post('/user/login', data)
@@ -64,8 +68,12 @@ const callOrder = (data: IData) => {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const callGetHistory = ( ) => {
+const callGetHistory = () => {
     return axios.get('/history')
+}
+
+export const callUpdatePassowrd = ({ userId, password, newPassword }: { userId: string, password: string, newPassword: string }) => {
+    return axios.post('/user/update-password', { userId, password, newPassword })
 }
 
 export {

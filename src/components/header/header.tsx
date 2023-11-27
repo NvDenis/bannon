@@ -9,7 +9,7 @@ import NavBar from '../nav/nav.tsx';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { doDrawerCartToggle, doLoginToggle, doLogoutAction, doRegisterToggle } from '../../redux/account/accountSlice.tsx';
+import { doDrawerCartToggle, doLoginToggle, doLogoutAction, doModalManageAccountToggle, doRegisterToggle } from '../../redux/account/accountSlice.tsx';
 import { callLogout } from '../../services/api.tsx';
 import { RootState } from '../../redux/store.tsx';
 
@@ -84,8 +84,9 @@ export default function Header() {
                           </>
                           :
                           <ul>
-                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color cursor-pointer' onClick={handleLogout} >Đăng xuất</a></li>
+                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color cursor-pointer' onClick={() => dispatch(doModalManageAccountToggle())} >Quản lí tài khoản</a></li>
                             <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color cursor-pointer' onClick={() => navigate('/history')} >Xem lịch sử đặt hàng</a></li>
+                            <li className='mb-[10px]'><a className='bg-black text-white block text-center py-[10px] px-[15px] text-sm rounded hover:bg-primary-color cursor-pointer' onClick={handleLogout} >Đăng xuất</a></li>
 
                           </ul>
                       }

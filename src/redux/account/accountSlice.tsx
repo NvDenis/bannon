@@ -23,6 +23,7 @@ interface AccountState {
     },
     drawerCart: boolean,
     drawerNav: boolean,
+    modalManageAccount:boolean,
 }
 
 // Define the initial state using that type
@@ -40,6 +41,7 @@ const initialState: AccountState = {
     },
     drawerCart: false,
     drawerNav: false,
+    modalManageAccount: false,
 }
 
 export const accountSlice = createSlice({
@@ -52,6 +54,9 @@ export const accountSlice = createSlice({
         },
         doDrawerCartToggle: (state) => {
             state.drawerCart = !state.drawerCart;
+        },
+        doModalManageAccountToggle: (state) => {
+            state.modalManageAccount = !state.modalManageAccount;
         },
         doDrawerNavToggle: (state) => {
             state.drawerNav = !state.drawerNav;
@@ -118,6 +123,9 @@ export const accountSlice = createSlice({
                 wishList: []
             };
         },
+        doUpdateInfo: (state, action) => {
+            state.user = action.payload;
+        }
     },
 })
 
@@ -131,7 +139,9 @@ export const {
     doDeleteProductCart,
     doDrawerNavToggle,
     doOnChangeQuantity,
-    doResetCart
+    doResetCart,
+    doModalManageAccountToggle,
+    doUpdateInfo,
 } = accountSlice.actions
 
 

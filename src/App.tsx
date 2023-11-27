@@ -11,6 +11,7 @@ import Login from './components/login/login'
 import Register from './components/register/register'
 import DrawerNavbar from './components/drawerNavbar/drawerNavbar'
 import DrawerCart from './components/drawerCart/drawerCart'
+import { ModalManageAccount } from './components/modalManageAccount/ModalManageAccount'
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
       <Register  />
       <DrawerCart />
       <DrawerNavbar />
+      <ModalManageAccount />
     </>
   )
 }

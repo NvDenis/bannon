@@ -9,7 +9,7 @@ interface IHistory {
   thumbnail: string,
   productName: string,
   quantity: number,
-  price: number,
+  price: string,
 }
 
 
@@ -17,19 +17,35 @@ const HistoryPage = () => {
   const [history, setHistory] = useState<IHistory[]>([])
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const getHistory = async () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const res: any = await callGetHistory();
+  const getHistory = async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const res: any = await callGetHistory();
 
-      if (res && res.success === true) {
-        setHistory(res.data);
-      }
-
+    if (res && res.success === true) {
+      setHistory(res.data);
     }
 
+  }
+
+  const cost = (price: string, quantity: number) => {
+    const priceWithoutComma = price.replace(/\./g, "");
+    const total = parseFloat(priceWithoutComma) * quantity;
+
+    // Định dạng tổng giá trị theo định dạng số có dấu chấm
+    const formattedTotalCost = total.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+
+    // Loại bỏ chữ "₫" từ định dạng số
+    const totalCostWithoutSymbol = formattedTotalCost.replace("₫", "");
+    // Cập nhật state với tổng giá trị đã tính toán và không có chữ "₫"
+    return totalCostWithoutSymbol
+  }
+
+  useEffect(() => {
     getHistory();
   }, [])
+
+
+
 
   return (
     <div>
@@ -55,10 +71,10 @@ const HistoryPage = () => {
                   return (
                     <div className='grid grid-cols-3 md:grid-cols-6 border-b border-gray-300 relative '>
                       <div className=' col-span-2 md:col-span-3 shrink-1 flex'>
-                        <img src={e.thumbnail} alt="" className='w-24 md:w-32' />
+                        <img src={e.thumbnail} alt="" className='w-20 sm:w-24 md:w-32' />
                         <div className="flex flex-col justify-center">
                           <p className="text-base md:text-xl uppercase">{e.productName}</p>
-                          <p className="text-primary-color ">{e.price} vnd</p>
+                          <p className=" ">{e.quantity} x <span className='text-primary-color'>{e.price} vnđ</span> </p>
                         </div>
                       </div>
                       <div className='hidden md:flex flex-col  justify-center '>
@@ -68,12 +84,12 @@ const HistoryPage = () => {
                       <div className='hidden md:flex  text-center justify-center items-center'>
                         x{e.quantity}
                       </div>
-                      <div className=' font-bold text-base md:text-xl flex items-center justify-end'>
-                        {e.price} vnd
+                      <div className='font-bold sm:text-base md:text-xl flex items-center justify-end  '>
+                        {cost(e.price, e.quantity)} vnđ
                       </div>
 
                       <div className="absolute right-0 bottom-0 w-30 md:w-48 bg-red-500 ">
-                        <button className="w-full  bg-color-header py-2 uppercase px-8 font-light hover:bg-primary-color hover:text-white duration-500" onClick={() => {
+                        <button className="w-full  bg-color-header py-1 uppercase px-8 font-light hover:bg-primary-color hover:text-white duration-500" onClick={() => {
                           const result = convertToSlug(e.productName);
                           navigate(`/hat/${result}?id=${e.id}`)
                         }} >Mua lại</button>

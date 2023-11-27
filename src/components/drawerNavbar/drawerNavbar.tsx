@@ -3,15 +3,29 @@ import { BiMap } from "react-icons/bi";
 import { BsTelephone } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { doDrawerNavToggle, doLoginToggle } from "../../redux/account/accountSlice";
-import { Link } from "react-router-dom";
-
+import { doDrawerNavToggle, doLoginToggle, doLogoutAction, doModalManageAccountToggle } from "../../redux/account/accountSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { IoLogOutOutline } from "react-icons/io5";
+import { callLogout } from "../../services/api";
+import { toast } from "react-toastify";
 
 
 
 const DrawerNavbar: React.FC = () => {
+    const isAuthenticated = useSelector((state: RootState) => state.account.isAuthenticated)
     const drawerNav = useSelector((state: RootState) => state.account.drawerNav)
     const dispatch = useDispatch()
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        const res = await callLogout();
+        if (res && res.data) {
+          dispatch(doLogoutAction());
+          toast.success("Đăng xuất thành công");
+          navigate("/");
+          dispatch(doDrawerNavToggle())
+        }
+      }
     return (
         <main
             className={
@@ -71,11 +85,55 @@ const DrawerNavbar: React.FC = () => {
                         <ul>
                             <li><a className='uppercase text-sm flex items-center gap-2 px-4 py-5'><BsTelephone /> 1800 7191 (miễn phí cuộc gọi)</a></li>
                             <li><a className='uppercase text-sm flex items-center gap-2 px-4 py-5'><BiMap /> Hệ thống cửa hàng</a></li>
-                            <li><a className='uppercase text-sm flex items-center gap-2 px-4 py-5' onClick={() => {
-                                dispatch(doLoginToggle());
-                                dispatch(doDrawerNavToggle())
-                            }}><AiOutlineUser /> tài khoản</a></li>
-                            <li><a className='uppercase text-sm flex items-center gap-2 px-4 py-5'><AiOutlineMenu /> theo dõi đơn hàng</a></li>
+                            {
+                                isAuthenticated === false ?
+                                    <li>
+                                        <a
+                                            className='uppercase text-sm flex items-center gap-2 px-4 py-5'
+                                            onClick={() => {
+                                                dispatch(doLoginToggle());
+                                                dispatch(doDrawerNavToggle())
+                                            }}
+                                        >
+                                            <AiOutlineUser />
+                                            tài khoản
+                                        </a>
+                                    </li>
+                                    :
+                                    <>
+                                        <li>
+                                            <a className='uppercase text-sm flex items-center gap-2 px-4 py-5'
+                                                onClick={() => {
+                                                    dispatch(doModalManageAccountToggle());
+                                                    dispatch(doDrawerNavToggle())
+                                                }}
+                                            >
+                                                <AiOutlineUser />
+                                                quản lý tài khoản
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a className='uppercase text-sm flex items-center gap-2 px-4 py-5'
+                                                onClick={() => {
+                                                    navigate('/history')
+                                                    dispatch(doDrawerNavToggle())
+                                                }}
+                                            >
+                                                <AiOutlineMenu />
+                                                lịch sử đặt hàng
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a className='uppercase text-sm flex items-center gap-2 px-4 py-5'
+                                                onClick={handleLogout}
+                                            >
+                                                <IoLogOutOutline />
+                                                đăng xuất
+
+                                            </a>
+                                        </li>
+                                    </>
+                            }
                         </ul>
                     </div>
                 </div>
