@@ -10,6 +10,7 @@ export const ModalManageAccount = () => {
   const user = useSelector((state: RootState) => state.account.user)
   const modalToggle = useSelector((state: RootState) => state.account.modalManageAccount)
 
+  console.log('check user ', user);
   const tabs: string[] = [
     'Cập nhật thông tin',
     'Đổi mật khẩu'
@@ -17,7 +18,12 @@ export const ModalManageAccount = () => {
   const dispatch = useDispatch()
 
   const [type, setType] = useState('Cập nhật thông tin')
-  const [data, setData] = useState({
+  const [data, setData] = useState<{
+    phone: string,
+    fullName: string,
+    password: string,
+    newPassword: string,
+  }>({
     phone: user.phone,
     fullName: user.fullName,
     password: '',
@@ -36,6 +42,7 @@ export const ModalManageAccount = () => {
   }
   const handleUpdateInfo = async () => {
     try {
+      console.log('check data', data.fullName, data.phone);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const res: any = await callUpdateInfo({ userId: user.id, phone: data.phone, fullName: data.fullName })
       if (res && res.data) {
@@ -115,11 +122,11 @@ export const ModalManageAccount = () => {
                     </div>
                     <div className='mb-[15px]'>
                       <label htmlFor="">Số điện thoại của bạn</label>
-                      <input className="h-[45px]  outline-none border-solid border-slate-400 border-[1px] border-collapse text-sm w-full px-[10px] " type="tel" name="phone" defaultValue={user.phone} onChange={(e) => handleOnChange(e)}></input>
+                      <input className="h-[45px]  outline-none border-solid border-slate-400 border-[1px] border-collapse text-sm w-full px-[10px] " type="tel" name="phone" defaultValue={data.phone} onChange={(e) => handleOnChange(e)}></input>
                     </div>
                     <div className='mb-[15px]'>
                       <label htmlFor="">Tên của bạn</label>
-                      <input className="h-[45px]  outline-none border-solid border-slate-400 border-[1px] border-collapse text-sm w-full px-[10px] " type="text" name="fullName" defaultValue={user.fullName} onChange={(e) => handleOnChange(e)}></input>
+                      <input className="h-[45px]  outline-none border-solid border-slate-400 border-[1px] border-collapse text-sm w-full px-[10px] " type="text" name="fullName" defaultValue={data.fullName} onChange={(e) => handleOnChange(e)}></input>
                     </div>
 
                     <button className='w-full bg-black text-white uppercase py-3 px-10 mt-5 hover:bg-primary-color duration-500' onClick={handleUpdateInfo}> cập nhật </button>
