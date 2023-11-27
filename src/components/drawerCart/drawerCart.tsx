@@ -16,23 +16,29 @@ export default function DrawerCart() {
     const [totalCost, setTotalCost] = useState<string>('')
 
     useEffect(() => {
-        const calculatedTotalCost = wishList?.reduce((acc, product) => {
-          // Loại bỏ dấu chấm và chuyển đổi sang số
-          const priceWithoutComma = product?.price?.replace(/\./g, "");
-          const price = parseFloat(priceWithoutComma);
-          acc += price * product.quantity;
-          return acc;
-        }, 0);
-      
-        // Định dạng tổng giá trị theo định dạng số có dấu chấm
-        const formattedTotalCost = calculatedTotalCost?.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
-      
-        // Loại bỏ chữ "₫" từ định dạng số
-        const totalCostWithoutSymbol = formattedTotalCost?.replace("₫", "");
-      
-        // Cập nhật state với tổng giá trị đã tính toán và không có chữ "₫"
-        setTotalCost(totalCostWithoutSymbol);
+        if (wishList && wishList.length > 0) {
+          const calculatedTotalCost = wishList.reduce((acc, product) => {
+            // Loại bỏ dấu chấm và chuyển đổi sang số
+            const priceWithoutComma = product?.price?.replace(/\./g, "");
+            const price = parseFloat(priceWithoutComma);
+            acc += price * product.quantity;
+            return acc;
+          }, 0);
+        
+          // Định dạng tổng giá trị theo định dạng số có dấu chấm
+          const formattedTotalCost = calculatedTotalCost.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+        
+          // Loại bỏ chữ "₫" từ định dạng số
+          const totalCostWithoutSymbol = formattedTotalCost.replace("₫", "");
+        
+          // Cập nhật state với tổng giá trị đã tính toán và không có chữ "₫"
+          setTotalCost(totalCostWithoutSymbol);
+        } else {
+          // Xử lý trường hợp khi wishList không tồn tại hoặc rỗng
+          setTotalCost("0");
+        }
       }, [wishList]);
+      
       
 
 

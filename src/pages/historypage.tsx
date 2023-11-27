@@ -67,9 +67,9 @@ const HistoryPage = () => {
 
             <div className="">
               {
-                history && history.map((e) => {
+                history && history.map((e, index) => {
                   return (
-                    <div className='grid grid-cols-3 md:grid-cols-6 border-b border-gray-300 relative '>
+                    <div className='grid grid-cols-3 md:grid-cols-6 border-b border-gray-300 relative ' key={index}>
                       <div className=' col-span-2 md:col-span-3 shrink-1 flex'>
                         <img src={e.thumbnail} alt="" className='w-20 sm:w-24 md:w-32' />
                         <div className="flex flex-col justify-center">

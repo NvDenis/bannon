@@ -15,27 +15,29 @@ export const ModalManageAccount = () => {
     'Đổi mật khẩu'
   ]
   const dispatch = useDispatch()
+
   const [type, setType] = useState('Cập nhật thông tin')
   const [data, setData] = useState({
-    phone: '',
-    fullName: '',
+    phone: user.phone,
+    fullName: user.fullName,
     password: '',
     newPassword: ''
   })
 
-
-
   const handleOnChange = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target
 
-    setData({
-      ...data,
-      [name]: value
+    setData((pre) => {
+      return {
+        ...pre,
+        [name]: value,
+      }
     })
   }
   const handleUpdateInfo = async () => {
     try {
-      const res = await callUpdateInfo({ userId: user.id, phone: data.phone, fullName: data.fullName })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const res: any = await callUpdateInfo({ userId: user.id, phone: data.phone, fullName: data.fullName })
       if (res && res.data) {
         toast.success(res.message)
         dispatch(doUpdateInfo(res.data.user))
@@ -43,15 +45,13 @@ export const ModalManageAccount = () => {
       }
 
     } catch (error) {
-      toast.error(res.message)
       return
     }
   }
-
   const handleUpdatePassword = async () => {
     try {
-      const res = await callUpdatePassowrd({ userId: user.id, password: data.password, newPassword: data.newPassword });
-      console.log('check res ', res);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const res: any = await callUpdatePassowrd({ userId: user.id, password: data.password, newPassword: data.newPassword });
       if (res && res.data && res.success) {
         // Password update was successful
         // You might want to perform some action, e.g., show a success message
@@ -93,6 +93,7 @@ export const ModalManageAccount = () => {
                       onClick={() => {
                         setType(tab)
                       }}
+                      key={tab}
                     >
                       {tab}
                     </p>
@@ -143,7 +144,7 @@ export const ModalManageAccount = () => {
                     <input className="h-[45px]  outline-none border-solid border-slate-400 border-[1px] border-collapse text-sm w-full px-[10px] " type="password" name="newPassword" onChange={(e) => handleOnChange(e)}></input>
                   </div>
 
-                  <button className='w-full bg-black text-white uppercase py-3 px-10 mt-5 hover:bg-primary-color duration-500' onClick={(e) => handleUpdatePassword(e)}> xác nhận </button>
+                  <button className='w-full bg-black text-white uppercase py-3 px-10 mt-5 hover:bg-primary-color duration-500' onClick={handleUpdatePassword}> xác nhận </button>
                 </>
               }
             </div>
