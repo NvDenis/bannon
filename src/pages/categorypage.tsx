@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Slide } from 'react-slideshow-image';
-import { callGetCategoryById } from '../services/api';
+import { callGetCategoryByName } from '../services/api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { convertToSlug } from '../utils/convertToSlug';
 import { Fade } from "react-awesome-reveal";
@@ -19,33 +19,31 @@ export default function CategoryPage() {
     const [banner, setBanner] = useState('')
     const [title, setTitle] = useState('')
     const navigate = useNavigate();
+    const getCategoryById = async () => {
+        const res = await callGetCategoryByName(categoryName);
 
+        if (res && res.data) {
+            const data = res.data.products.map((e: { _id: string; thumbnail: string; slider: string[]; mainText: string; price: string; }) => {
+                return {
+                    id: e._id,
+                    img: [`${import.meta.env.VITE_URL_BACKEND}/images/hat/${e.thumbnail}`, ...e.slider.map((slide: string) => `${import.meta.env.VITE_URL_BACKEND}/images/hat/${slide}`)],
+                    name: e.mainText,
+                    price: e.price,
+                }
+            })
+            setProducts(data);
+            if (res.data.banner === '') {
+                setBanner('')
+            } else {
+                setBanner(`${import.meta.env.VITE_URL_BACKEND}/images/hat/${res.data.banner}`);
+
+            }
+
+            setTitle(res.data.title)
+        }
+    }
 
     useEffect(() => {
-        const getCategoryById = async () => {
-            const res = await callGetCategoryById(categoryName);
-
-
-            if (res && res.data) {
-                const data = res.data.products.map((e: { _id: string; thumbnail: string; slider: string[]; mainText: string; price: string; }) => {
-                    return {
-                        id: e._id,
-                        img: [`${import.meta.env.VITE_URL_BACKEND}/images/hat/${e.thumbnail}`, ...e.slider.map((slide: string) => `${import.meta.env.VITE_URL_BACKEND}/images/hat/${slide}`)],
-                        name: e.mainText,
-                        price: e.price,
-                    }
-                })
-                setProducts(data);
-                if (res.data.banner === '') {
-                    setBanner('')
-                } else {
-                    setBanner(`${import.meta.env.VITE_URL_BACKEND}/images/hat/${res.data.banner}`);
-
-                }
-
-                setTitle(res.data.title)
-            }
-        }
         getCategoryById();
     }, [categoryName])
 

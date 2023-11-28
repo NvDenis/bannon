@@ -1,13 +1,23 @@
 import { useEffect, useState } from "react";
 import { Slide } from "react-slideshow-image";
-import { callGetProductByID } from "../services/api";
+import { callGetCategoryByID, callGetProductByID } from "../services/api";
 import { useLocation } from "react-router-dom";
 import RatingComponent from "../components/rating/rating";
 import { useDispatch, useSelector } from "react-redux";
 import { doAddProductCart, doDrawerCartToggle, doLoginToggle } from "../redux/account/accountSlice";
 import { RootState } from "../redux/store";
+import SlideProducts from "../components/slideProducts/slideProducts";
+
+interface Product {
+    id: string;
+    url: string;
+    name: string;
+    price: string;
+}
 
 export default function DetailProductPage() {
+
+    const [products, setProducts] = useState<Product[]>([])
 
     const dispatch = useDispatch();
     const responsiveSettings = [{
@@ -27,18 +37,21 @@ export default function DetailProductPage() {
     const [dataProduct, setDataProduct] = useState<{
         id: string,
         img: string[];
+        category: string,
         name: string;
         price: string;
         sold: number;
     }>({
         id: '',
         img: [""],
+        category: '',
         name: '',
         price: '',
         sold: 0,
     });
+    console.log('check dataProduct ', dataProduct);
     const isAuthenticated = useSelector((state: RootState) => state?.account?.isAuthenticated)
-    
+
     const handleOrder = async () => {
         if (isAuthenticated === true) {
             const data = {
@@ -61,30 +74,54 @@ export default function DetailProductPage() {
     const searchParams = new URLSearchParams(location.search);
     // Lấy giá trị 'id' từ tham số truy vấn (query parameter) của URL
     const id = searchParams.get('id') ?? '';
+    const getDetailProduct = async () => {
+        const res = await callGetProductByID(id);
+
+        if (res && res.data) {
+            const data = {
+                id: res.data._id,
+                img: [
+                    `${import.meta.env.VITE_URL_BACKEND}/images/hat/${res.data.thumbnail}`,
+                    ...res.data.slider.map((e: string) => `${import.meta.env.VITE_URL_BACKEND}/images/hat/${e}`),
+                ],
+                category: res.data.category,
+                name: res.data.mainText,
+                price: res.data.price,
+                sold: res.data.sold,
+            }
+            setDataProduct(data)
+            // Khi tất cả hình ảnh đã được tải, cập nhật trạng thái
+            setIsImagesLoaded(true);
+        }
+    }
+
+    const getCategoryById = async () => {
+        const res = await callGetCategoryByID(dataProduct.category);
+
+        if (res && res.data) {
+            const data = res.data.products.map((e: { _id: string; thumbnail: string; slider: string[]; mainText: string; price: string; }) => {
+                return {
+                    id: e._id,
+                    url: `${import.meta.env.VITE_URL_BACKEND}/images/hat/${e.thumbnail}`,
+                    name: e.mainText,
+                    price: e.price,
+                }
+            })
+
+            setProducts(data);
+        }
+    }
 
     useEffect(() => {
-        const getDetailProduct = async () => {
-            const res = await callGetProductByID(id);
-
-            if (res && res.data) {
-                const data = {
-                    id: res.data._id,
-                    img: [
-                        `${import.meta.env.VITE_URL_BACKEND}/images/hat/${res.data.thumbnail}`,
-                        ...res.data.slider.map((e: string) => `${import.meta.env.VITE_URL_BACKEND}/images/hat/${e}`),
-                    ],
-                    name: res.data.mainText,
-                    price: res.data.price,
-                    sold: res.data.sold,
-                }
-                setDataProduct(data)
-                // Khi tất cả hình ảnh đã được tải, cập nhật trạng thái
-                setIsImagesLoaded(true);
-            }
-        }
-
         getDetailProduct();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        getCategoryById();
+    }, [dataProduct]) 
+
+
+
 
     return (
         <div className="">
@@ -176,6 +213,10 @@ export default function DetailProductPage() {
 
                 <RatingComponent />
             </div>
+
+            <SlideProducts title="sản phẩm cùng nhóm" products={products} isFeatured={true} />
+
+
         </div>
     )
 }

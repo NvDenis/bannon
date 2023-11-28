@@ -47,14 +47,17 @@ const callGetCategory = () => {
     return axios.get('/category/')
 }
 
-const callGetCategoryById = (params: string | undefined) => {
-    return axios.get(`/category/${params}`,)
+export const callGetCategoryByName = (params: string | undefined) => {
+    return axios.get(`/category/name/${params}`,)
+}
+export const callGetCategoryByID = (params: string | undefined) => {
+    return axios.get(`/category/id/${params}`,)
 }
 
 const callGetProductByID = (id: string) => {
     return axios.get(`/product/detail/${id}`)
 }
-
+ 
 const callGetFeaturedProducts = () => {
     return axios.get('/product/featured-product')
 }
@@ -80,7 +83,7 @@ export {
     callRegister,
     callLogin,
     callGetCategory,
-    callGetCategoryById,
+    // callGetCategoryById,
     callGetProductByID,
     callGetFeaturedProducts,
     callGetBOGOProducts,

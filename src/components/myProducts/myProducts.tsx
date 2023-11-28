@@ -53,7 +53,7 @@ export default function MyProducts() {
             const res = await callGetCategory();
 
             if (res && res.data) {
-                const data = res.data.map((e: any) => {
+                const data = res.data.map((e: { _id: string; thumb: string; name: string; }) => {
                     return {
                         id: e._id,
                         url: `${import.meta.env.VITE_URL_BACKEND}images/hat/${e.thumb}`,
@@ -93,10 +93,23 @@ export default function MyProducts() {
 
                                         return (
                                             <Link to={`/category/${result}`} className='relative group' key={e.name}>
-                                                <div className=" w-[160px] h-[200px]  md:w-[210px] md:h-[250px] lg:w-[215px] lg:h-[300px] group-hover:-translate-y-1 duration-1000">
+                                                {/* <div className=" w-[160px] h-[200px]  md:w-[210px] md:h-[250px] lg:w-[215px] lg:h-[300px] group-hover:-translate-y-1 duration-1000">
                                                     <img src={e.url} alt="" className='h-full w-full' />
                                                 </div>
-                                                <div className="uppercase inline-block py-2 font-bold text-lg hover:text-primary-color group-hover:text-primary-color duration-1000">{e.name}</div>
+                                                <div className="uppercase inline-block py-2 font-bold text-lg hover:text-primary-color group-hover:text-primary-color duration-1000">{e.name}</div> */}
+
+                                                <div className='relative group cursor-pointer mr-4' key={e.url}>
+                                                    <div key={e.url} className='bg-color-header relative ' >
+                                                        <div className="text-center group-hover:-translate-y-1 duration-1000  pt-[50%] h-[250px] md:h-[300px] " style={{
+                                                            background: `url(${e.url})`,
+                                                            backgroundSize: 'cover', // make sure the image covers the whole div
+                                                            backgroundPosition: 'center', // center the image
+                                                        }}>
+                                                            {/* <img src={e.url} alt="" className='h-full w-full ' /> */}
+                                                        </div>
+                                                    </div>
+                                                    <div className="uppercase inline-block py-2 font-bold text-lg hover:text-primary-color group-hover:text-primary-color duration-1000 ">{e.name}</div>
+                                                </div>
                                             </Link>
                                         )
                                     })

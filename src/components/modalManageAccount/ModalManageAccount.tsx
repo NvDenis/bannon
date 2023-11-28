@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
 import { doModalManageAccountToggle, doUpdateInfo } from "../../redux/account/accountSlice"
@@ -10,13 +10,11 @@ export const ModalManageAccount = () => {
   const user = useSelector((state: RootState) => state.account.user)
   const modalToggle = useSelector((state: RootState) => state.account.modalManageAccount)
 
-  console.log('check user ', user);
   const tabs: string[] = [
     'Cập nhật thông tin',
     'Đổi mật khẩu'
   ]
   const dispatch = useDispatch()
-
   const [type, setType] = useState('Cập nhật thông tin')
   const [data, setData] = useState<{
     phone: string,
@@ -30,6 +28,16 @@ export const ModalManageAccount = () => {
     newPassword: ''
   })
 
+  useEffect(() => {
+    setData({
+      phone: user.phone,
+      fullName: user.fullName,
+      password: '',
+      newPassword: ''
+    })
+  }, [user])
+
+
   const handleOnChange = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target
 
@@ -42,7 +50,6 @@ export const ModalManageAccount = () => {
   }
   const handleUpdateInfo = async () => {
     try {
-      console.log('check data', data.fullName, data.phone);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const res: any = await callUpdateInfo({ userId: user.id, phone: data.phone, fullName: data.fullName })
       if (res && res.data) {

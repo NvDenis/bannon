@@ -111,7 +111,7 @@ export default function Header() {
             <img src={bglogo} alt="Logo" className="w-220 h-90 object-contain w-full " />
           </div>
 
-          <img src={logo} alt="" className=" max-h-16 top-[15px] sm:max-h-24 absolute sm:top-[-25px]" onClick={() => navigate('/')} />
+          <img src={logo} alt="" className=" max-h-16 top-[15px] sm:max-h-24 absolute sm:top-[-25px] cursor-pointer" onClick={() => navigate('/')} />
         </div>
 
 

@@ -53,8 +53,6 @@ export default function SlideProducts({ title, products, isFeatured = false, isB
 
     ]
 
-
-
     return (
         <div className="px-8  mt-20">
             <hr />
@@ -68,13 +66,9 @@ export default function SlideProducts({ title, products, isFeatured = false, isB
                 {
                     products && products.length > 0 ?
                         <Slide slidesToScroll={1} canSwipe={false} duration={3000} slidesToShow={1} transitionDuration={500} autoplay={true} responsive={responsiveSettings}>
-
-                            {
+                            {/* {
                                 products.map((e) => {
-
-
                                     const result = convertToSlug(e.name);
-
                                     return (
                                         <Link to={`hat/${result}?id=${e.id}`} className=' group flex flex-col justify-center  items-center ' key={e.name}>
                                             <div className="relative w-[160px] h-[200px]  md:w-[210px] md:h-[250px] bg-color-header lg:w-[215px] lg:h-[270px] py-6 ">
@@ -83,7 +77,8 @@ export default function SlideProducts({ title, products, isFeatured = false, isB
                                                     <Rating iconsCount={1} fillIcon={<AiFillHeart style={{ fontSize: '25px' }} />} emptyIcon={<AiOutlineHeart style={{ fontSize: '25px' }} />} fillColor='#e21e70' />
                                                 </span>
                                                 {
-                                                    isFeatured && <span className='absolute top-4 left-4 uppercase text-[10px] border border-black block py-[1px] px-[2px]'>nổi bật</span>
+                                                    isFeatured && 
+                                                    <span className='absolute top-4 left-4 uppercase text-[10px] border border-black block py-[1px] px-[2px]'>nổi bật</span>
 
                                                 }
 
@@ -99,7 +94,41 @@ export default function SlideProducts({ title, products, isFeatured = false, isB
 
                                     )
                                 })
+                            } */}
+                            {
+                                products.map((proEle) => {
+                                    const result = convertToSlug(proEle.name);
+                                    return (
+                                        <Link to={`/hat/${result}?id=${proEle.id}`} key={proEle.name}>
+                                            <div className='relative group cursor-pointer mr-4' key={proEle.id}>
+                                                <div key={proEle.id} className='bg-color-header relative ' >
+                                                    <div className="text-center group-hover:-translate-y-1 duration-1000" >
+                                                        <img src={proEle.url} alt="" className='h-full max-h-[330px] w-full' />
+                                                    </div>
+                                                    <span className='absolute top-4 right-4'>
+                                                        <Rating disableFillHover={true} iconsCount={1} fillIcon={<AiFillHeart style={{ fontSize: '25px' }} />} emptyIcon={<AiOutlineHeart style={{ fontSize: '25px' }} />} fillColor='#e21e70' />
+                                                    </span>
+                                                    {
+                                                        isFeatured &&
+                                                        <span className='absolute top-4 left-4 uppercase text-[10px] border border-black block py-[1px] px-[2px]'>nổi bật</span>
+
+                                                    }
+
+                                                    {
+                                                        isBOGO && <span className='absolute top-4 left-4'>
+                                                            <img src={BOGO} alt="" />
+                                                        </span>
+                                                    }
+                                                </div>
+                                                <div className="text-center uppercase py-1 font-bold  hover:text-primary-color group-hover:text-primary-color duration-1000 text-[12px] ">{proEle.name}</div>
+                                                <div className="text-center text-primary-color text-[14px] ">{proEle.price} VNĐ</div>
+                                            </div>
+                                        </Link>
+
+                                    )
+                                })
                             }
+
                         </Slide>
 
                         :
