@@ -99,7 +99,7 @@ export default function Header() {
                 <BsBag />
                 <span className=' hover:text-primary-color cursor-pointer duration-500'> {wishList?.length > 0 ? wishList.length : 0} Sản phẩm</span>
               </span>
-              <span className='flex items-center lg:hidden'><FiFacebook /><span className=' hover:text-primary-color cursor-pointer duration-500'> Mua hàng qua Facebook</span></span>
+              <a href='https://www.facebook.com/vduyit' className='flex items-center lg:hidden'><FiFacebook /><span className=' hover:text-primary-color cursor-pointer duration-500'> Mua hàng qua Facebook</span></a>
             </div>
           </div>
         </div>

@@ -49,7 +49,6 @@ export default function DetailProductPage() {
         price: '',
         sold: 0,
     });
-    console.log('check dataProduct ', dataProduct);
     const isAuthenticated = useSelector((state: RootState) => state?.account?.isAuthenticated)
 
     const handleOrder = async () => {
@@ -113,12 +112,19 @@ export default function DetailProductPage() {
     }
 
     useEffect(() => {
-        getDetailProduct();
-    }, []);
+
+        const fetchData = async () => {
+            await getDetailProduct();
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // smooth scroll to top
+        };
+    
+        fetchData();
+
+    }, [id]);
 
     useEffect(() => {
         getCategoryById();
-    }, [dataProduct]) 
+    }, [dataProduct])
 
 
 

@@ -4,7 +4,8 @@ import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from "react-redux"
 import { doLoginAction, doLoginToggle, doRegisterToggle } from "../../redux/account/accountSlice"
 import { RootState } from "../../redux/store"
-
+import { FaRegEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 
 interface IData {
@@ -16,6 +17,7 @@ export default function Login() {
     const loginToggle = useSelector((state: RootState) => state.account.loginToggle)
     const dispatch = useDispatch();
     const [data, setData] = useState<IData>({ email: '', password: '' })
+    const [isShowPassword, setIsShowPassword] = useState(false)
 
     const handleShowRegister = () => {
         dispatch(doLoginToggle())
@@ -52,6 +54,10 @@ export default function Login() {
         }
     }
 
+    const handleShowPasswordToggle = () => {
+        setIsShowPassword((pre) => !pre)
+    }
+
     return (
         <>
             {
@@ -72,10 +78,20 @@ export default function Login() {
                             </div>
 
                             <div className='mb-[15px]'>
-                                <input className="h-[45px]  outline-none border-solid border-slate-400 border-[1px] border-collapse text-sm w-full px-[10px] " onChange={handleOnChange} name="email" placeholder='Email của bạn'></input>
+                                <input className="h-[45px]  outline-none border-solid border-slate-400 border-[1px] border-collapse text-sm w-full px-[10px] " onChange={handleOnChange} name="email" placeholder='Email của bạn' />
                             </div>
-                            <div className='mb-[10px]'>
-                                <input className="h-[45px]  outline-none border-solid border-slate-400 border-[1px] border-collapse text-sm w-full px-[10px] " onChange={handleOnChange} name="password" placeholder='Mật khẩu' type='password'></input>
+                            <div className='mb-[10px] relative '>
+                                <input className="h-[45px]  outline-none border-solid border-slate-400 border-[1px] border-collapse text-sm w-full pl-[10px] pr-[45px]" onChange={handleOnChange} name="password" placeholder='Mật khẩu' type={isShowPassword ? 'text' : 'password'} />
+                                <span className="p-3 absolute right-0 cursor-pointer top-1/2 -translate-y-1/2" onClick={handleShowPasswordToggle}>
+
+                                    {
+                                        isShowPassword ?
+                                            <FaRegEye />
+                                            :
+                                            <FaEyeSlash />
+                                    }
+
+                                </span>
                             </div>
 
                             <button className='w-full bg-black text-white uppercase py-3 px-10 mt-5 hover:bg-primary-color duration-500' onClick={handleLogin}> đăng nhập </button>

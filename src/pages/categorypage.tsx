@@ -44,7 +44,12 @@ export default function CategoryPage() {
     }
 
     useEffect(() => {
-        getCategoryById();
+        const fetchData = async () => {
+            await getCategoryById();
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // smooth scroll to top
+        };
+
+        fetchData();
     }, [categoryName])
 
     const responsiveSettings = [{
